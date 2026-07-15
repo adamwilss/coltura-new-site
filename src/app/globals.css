@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Theme tokens.
+ * Numeric triplets (e.g. "250 247 242") feed the Tailwind rgb(var(...) / <alpha-value>)
+ * colours in tailwind.config.ts. Hex duplicates (--ink-hex etc) exist purely for
+ * places that need a plain CSS colour value (inline SVG stroke/fill) where the
+ * rgb()/<alpha-value> trick doesn't apply.
+ */
+:root {
+  --bg: 250 247 242; /* #FAF7F2 */
+  --bg-secondary: 242 236 228; /* #F2ECE4 */
+  --card: 255 255 255; /* #FFFFFF */
+  --footer: 242 236 228; /* #F2ECE4 */
+  --ink: 23 21 19; /* #171513 */
+  --muted: 109 103 97; /* #6D6761 */
+  --line: 228 221 212; /* #E4DDD4 */
+  --brand: 223 44 50; /* #DF2C32 */
+
+  --ink-hex: #171513;
+  --brand-hex: #df2c32;
+}
+
+/*
+ * Dark palette deliberately steps through four distinct warm-charcoal
+ * shades (bg -> card -> secondary -> footer, each a bit darker) instead of
+ * one flat near-black everywhere — that's what reads as "designed" rather
+ * than "React app default dark mode".
+ */
+.dark {
+  --bg: 23 22 21; /* #171615 */
+  --bg-secondary: 30 26 24; /* #1E1A18 */
+  --card: 35 32 29; /* #23201D */
+  --footer: 19 18 16; /* #131210 */
+  --ink: 244 239 232; /* #F4EFE8 */
+  --muted: 170 163 154; /* #AAA39A */
+  --line: 60 56 51; /* #3C3833 */
+  --brand: 240 74 79; /* #F04A4F */
+
+  --ink-hex: #f4efe8;
+  --brand-hex: #f04a4f;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  position: relative;
+}
+
+/* Faint grain so flat colour fields don't look perfectly synthetic. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: rgb(var(--brand) / 0.25);
+  color: rgb(var(--ink));
+}
+
+/* Theme-switch crossfade, respects prefers-reduced-motion */
+.theme-fade {
+  transition: opacity 250ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-fade {
+    transition: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--brand));
+  outline-offset: 2px;
+}
