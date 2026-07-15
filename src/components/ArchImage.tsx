@@ -4,27 +4,22 @@ import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
 /**
- * The hero portal — built to read as a deep opening carved into a wall, seen
- * head-on, with a genuine sense of depth.
+ * The hero portal image. Fills its parent (the parent controls size + position
+ * — contained on mobile, bleeding off the page edge on desktop) and takes its
+ * silhouette from `shapeClassName`.
  *
- * What makes it read 3D (rather than a photo cropped to an arch):
- *  - DIRECTIONAL light: a crisp bright lip on the top & left front edges (the
- *    near face of the wall catching light) and a dark lip bottom & right, so
- *    the opening has a physical near surface.
- *  - A graduated SOFFIT: heavy shadow raking in from every inner edge,
- *    strongest at the top where the arch overhangs — the thickness of the
- *    wall the opening is bored through.
- *  - A lit POOL in the scene (light falling in from the upper-left) so the
- *    centre sits forward of the shadowed edges.
- *  - A scroll-driven DOLLY: the scene scales up and drifts as you move down
- *    the page, so it feels like advancing through the opening — not a flat
- *    parallax nudge. Disabled under prefers-reduced-motion.
+ * Depth cues so it reads as an opening, not a cropped photo:
+ *  - a graduated soffit shadow raking in from the edges (wall thickness),
+ *  - light pooling into the recess,
+ *  - a scroll-driven DOLLY: the scene scales + drifts as you move down the
+ *    page, so it feels like advancing through the opening.
+ * Dolly is disabled under prefers-reduced-motion.
  *
  * NOTE (still open): the dark source photo's laptop screen shows a placeholder
  * client-logo strip (Huel / Savage x Fenty / Barry's / Represent) — not real
  * clients. Replace before a real launch.
  */
-export default function ArchImage() {
+export default function ArchImage({ shapeClassName = 'hero-shape-mobile' }: { shapeClassName?: string }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -41,7 +36,6 @@ export default function ArchImage() {
       const rect = w.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const center = rect.top + rect.height / 2;
-      // 1 (portal below viewport) → 0 (centred) → -1 (above viewport)
       let p = (center - vh / 2) / (vh / 2 + rect.height / 2);
       p = Math.max(-1, Math.min(1, p));
       s.style.setProperty('--sp', p.toFixed(4));
@@ -62,44 +56,43 @@ export default function ArchImage() {
     };
   }, []);
 
-  const archRadius = '50% 50% 0 0 / 34% 34% 0 0';
-
   return (
-    <div ref={wrapRef} className="relative mx-auto w-full max-w-[440px] sm:max-w-[480px]">
+    <div ref={wrapRef} className="absolute inset-0">
       <div
-        className="relative aspect-[4/5] w-full overflow-hidden"
-        style={{
-          borderRadius: archRadius,
-          // Grounds the wall and gives its near face a lit top edge.
-          boxShadow:
-            '0 50px 90px -45px rgba(0,0,0,0.55), 0 -1px 0 1px rgba(0,0,0,0.04)',
-        }}
+        className={`absolute inset-0 overflow-hidden ${shapeClassName}`}
+        style={{ boxShadow: '0 50px 90px -45px rgba(0,0,0,0.5)' }}
       >
-        {/* Scene — dollies (scale) + drifts on scroll, so you advance through
-            the opening. Scaled up so movement never reveals its edges. */}
+        {/* Scene — dollies (scale) + drifts on scroll. Scaled up so movement
+            never reveals its edges. */}
         <div
           ref={sceneRef}
           className="absolute inset-0"
           style={{
             transform:
-              'scale(calc(1.27 - var(--sp, 0) * 0.07)) translateY(calc(var(--sp, 0) * 44px))',
+              'scale(calc(1.24 - var(--sp, 0) * 0.07)) translateY(calc(var(--sp, 0) * 42px))',
             willChange: 'transform',
           }}
         >
           <Image
             src="/images/arch-hero-light.png"
-            alt="A laptop showing a Coltura website design on a wooden desk, seen through a sunlit plaster archway"
+            alt="A laptop showing a Coltura website design on a wooden desk, seen through a sunlit archway"
             fill
             priority
-            sizes="(min-width: 1024px) 480px, 90vw"
-            className="theme-fade object-cover opacity-100 transition-opacity duration-250 dark:opacity-0"
+            sizes="(min-width: 1024px) 52vw, 90vw"
+            className="object-cover"
           />
-          <Image
-            src="/images/arch-hero-dark.png"
-            alt="The same laptop and archway at dusk, lit by warm lamp light"
-            fill
-            sizes="(min-width: 1024px) 480px, 90vw"
-            className="theme-fade object-cover opacity-0 transition-opacity duration-250 dark:opacity-100"
+          {/* Dusk wash — shown only in dark mode, so a single (clean) photo
+              serves both themes. The alternate dark source photo is NOT used:
+              its laptop screen carries a placeholder client-logo strip that
+              would read as a false client claim. Restore a theme-swap here
+              once a clean dark photo exists. */}
+          <div
+            className="theme-fade absolute inset-0 opacity-0 transition-opacity duration-250 dark:opacity-100"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(24,17,12,0.55) 0%, rgba(30,20,12,0.42) 45%, rgba(20,14,10,0.6) 100%)',
+              mixBlendMode: 'multiply',
+            }}
           />
         </div>
 
@@ -108,31 +101,16 @@ export default function ArchImage() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(115% 85% at 40% 32%, rgba(255,249,240,0.18) 0%, rgba(255,249,240,0) 52%), linear-gradient(180deg, rgba(255,250,240,0.12) 0%, rgba(0,0,0,0) 24%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.34) 100%)',
+              'radial-gradient(115% 85% at 40% 32%, rgba(255,249,240,0.16) 0%, rgba(255,249,240,0) 52%), linear-gradient(180deg, rgba(255,250,240,0.1) 0%, rgba(0,0,0,0) 24%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.26) 100%)',
           }}
         />
 
-        {/* The recess itself: graduated soffit shadow raking in from every
-            edge (heaviest at the top overhang), plus a soft lit band on the
-            upper-left inner wall where light grazes it. */}
+        {/* Soffit: graduated shadow raking in from the edges = wall thickness. */}
         <div
-          className="pointer-events-none absolute inset-0"
+          className={`pointer-events-none absolute inset-0 ${shapeClassName}`}
           style={{
-            borderRadius: archRadius,
             boxShadow:
-              'inset 0 44px 52px -16px rgba(0,0,0,0.72), inset 24px 0 46px -26px rgba(0,0,0,0.5), inset -24px 0 46px -26px rgba(0,0,0,0.5), inset 0 -28px 42px -22px rgba(0,0,0,0.46), inset 20px 26px 34px -30px rgba(255,248,236,0.6)',
-          }}
-        />
-
-        {/* The wall's near face: a crisp bright lip on the top & left edges,
-            a dark lip on the bottom & right — the single strongest cue that
-            this is a solid surface with an opening cut through it. */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            borderRadius: archRadius,
-            boxShadow:
-              'inset 0 3px 1px -1px rgba(255,255,255,0.6), inset 3px 0 1px -1px rgba(255,255,255,0.32), inset 0 -2px 1px -1px rgba(0,0,0,0.45), inset -2px 0 1px -1px rgba(0,0,0,0.4)',
+              'inset 0 40px 50px -16px rgba(0,0,0,0.6), inset 30px 0 50px -28px rgba(0,0,0,0.55), inset -24px 0 46px -26px rgba(0,0,0,0.4), inset 0 -28px 42px -22px rgba(0,0,0,0.4), inset 22px 26px 36px -32px rgba(255,248,236,0.55)',
           }}
         />
       </div>

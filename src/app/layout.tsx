@@ -23,9 +23,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Coltura — Stop paying for clicks that never become customers.',
+  title: 'Coltura — Websites that bring in calls, not just clicks.',
   description:
-    'A website should do more than look good. It should bring in calls and jobs. Coltura builds sites that turn clicks into real customers.',
+    'We design strategic websites that turn interest into real enquiries — and consistently win local business.',
 };
 
 export default function RootLayout({

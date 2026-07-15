@@ -90,6 +90,16 @@ body::before {
   outline-offset: 2px;
 }
 
+/* Hero image shapes. Mobile: a contained arch (dome on top). Desktop: a large
+   portal whose curved edge faces the copy, with the far side bleeding off the
+   page edge — the asymmetric, editorial treatment from the reference. */
+.hero-shape-mobile {
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+}
+.hero-shape-desktop {
+  border-radius: 46% 0 0 46% / 54% 0 0 54%;
+}
+
 /*
  * Hero load-in: one orchestrated staggered reveal rather than scattered
  * micro-interactions. Applied directly on mount (not scroll-triggered,

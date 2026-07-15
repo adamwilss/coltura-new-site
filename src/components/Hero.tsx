@@ -4,54 +4,41 @@ import WhatsAppButton from './WhatsAppButton';
 import SpotsLeft from './SpotsLeft';
 import SectionLabel from './SectionLabel';
 
-// Three grouped capabilities (was 6 separate bullets, which cluttered mobile
-// before the primary CTA). Full six-service detail lives in <Services />.
-const CAPABILITIES = ['Websites & landing pages', 'SEO & local visibility', 'Google & Meta advertising'];
+const CAPABILITIES = ['Websites & landing pages', 'SEO & local visibility', 'Google & Meta ads'];
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-bg">
-      {/* Atmosphere layer — a warm radial glow gathered behind the arch and
-          a soft wash of light from the top, so the hero reads as a lit space
-          with depth rather than one flat colour field. Purely decorative. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -right-32 -top-10 h-[560px] w-[560px] rounded-full"
-          style={{ background: 'radial-gradient(circle, rgb(var(--brand) / 0.07) 0%, transparent 68%)' }}
-        />
-        <div
-          className="absolute inset-x-0 top-0 h-72"
-          style={{ background: 'linear-gradient(180deg, rgb(var(--card) / 0.7) 0%, transparent 100%)' }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-40"
-          style={{ background: 'linear-gradient(0deg, rgb(var(--bg-secondary) / 0.6) 0%, transparent 100%)' }}
-        />
+    <section className="relative overflow-hidden bg-bg lg:min-h-[660px]">
+      {/* Soft wash of light from the top — subtle atmosphere behind the copy. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-72"
+        style={{ background: 'linear-gradient(180deg, rgb(var(--card) / 0.7) 0%, transparent 100%)' }}
+      />
+
+      {/* Desktop: the portal image bleeds off the top-right edge of the page. */}
+      <div className="reveal-6 absolute inset-y-0 right-0 hidden w-[52vw] max-w-[820px] lg:block">
+        <ArchImage shapeClassName="hero-shape-desktop" />
       </div>
 
-      {/*
-        No `order-*` utilities here on purpose: Copy is first in the DOM, so
-        it renders first on mobile (message before image) and lands in the
-        left grid column on desktop — both from natural source order.
-      */}
-      <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 pb-10 pt-14 sm:px-8 sm:pb-14 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 lg:py-28">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20 lg:flex lg:min-h-[660px] lg:items-center lg:py-24">
         {/* Copy */}
-        <div>
+        <div className="lg:max-w-[48%]">
           <div className="reveal-1">
             <SectionLabel label="Customer Acquisition Systems" />
           </div>
 
-          <h1 className="reveal-2 mb-4 max-w-[13ch] text-balance font-heading text-[clamp(2.5rem,6vw,3.5rem)] font-medium leading-[1.06] tracking-[-0.015em] text-ink">
-            Stop paying for clicks that never become{' '}
-            <span className="text-brand">customers.</span>
+          <h1 className="reveal-2 mb-5 text-balance font-heading text-[clamp(2.25rem,5.2vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-ink">
+            Websites that bring in calls,{' '}
+            <span className="text-brand">not just clicks.</span>
           </h1>
 
-          <p className="reveal-3 mb-6 max-w-[640px] text-lg leading-relaxed text-muted sm:text-xl">
-            A website should do more than look good. It should bring in calls and jobs
-            — real enquiries from people ready to buy.
+          <p className="reveal-3 mb-6 max-w-[34rem] text-lg leading-relaxed text-muted">
+            We design strategic websites that turn interest into real enquiries — and
+            consistently win local business.
           </p>
 
-          <div className="reveal-3 mb-6 flex flex-wrap gap-x-5 gap-y-2">
+          <div className="reveal-3 mb-7 flex flex-wrap gap-x-5 gap-y-2">
             {CAPABILITIES.map((capability) => (
               <span key={capability} className="flex items-center gap-1.5 text-sm text-muted">
                 <span className="h-1 w-1 rounded-full bg-brand" />
@@ -70,9 +57,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <p className="reveal-4 mb-5 text-xs text-muted">No obligation. Clear, practical feedback.</p>
-
-          <div className="reveal-5 flex flex-col items-start gap-2.5">
+          <div className="reveal-5 mt-5 flex flex-col items-start gap-2.5">
             <a
               href="tel:+447958394808"
               className="inline-flex items-center gap-2 text-sm text-muted underline decoration-line underline-offset-4 transition-colors hover:text-ink"
@@ -84,9 +69,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Arch-framed image */}
-        <div className="reveal-6">
-          <ArchImage />
+        {/* Mobile: the portal image sits contained beneath the copy. */}
+        <div className="reveal-6 relative mx-auto mt-12 aspect-[4/5] w-full max-w-[440px] lg:hidden">
+          <ArchImage shapeClassName="hero-shape-mobile" />
         </div>
       </div>
     </section>
