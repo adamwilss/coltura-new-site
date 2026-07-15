@@ -1,23 +1,74 @@
-// A "super clean" full-height statement that PINS while the following section
-// slides up and covers it (the stacking-panels effect). The pin is pure CSS
-// `position: sticky` — see page.tsx, where this sits with its covering section
-// inside one relative wrapper so the sticky range is limited to that pair.
-//
-// Content is real: the problem-statement headline from coltura.uk. Kept
-// deliberately spare — one line, one supporting sentence, lots of air.
+'use client';
+
+import { useEffect, useRef } from 'react';
+
+/**
+ * A "super clean" full-height statement that PINS (position: sticky) while the
+ * next section rises up and covers it (stacking panels — see page.tsx).
+ *
+ * To avoid the pinned text lingering or peeking through the covering panel's
+ * rounded corners, its content is faded + scaled DOWN in lockstep with how far
+ * the next section has risen: by the time the panel covers the viewport the
+ * statement has fully receded to nothing. Reads as the statement falling away
+ * into the distance. No-ops under prefers-reduced-motion (it simply stays put,
+ * still cleanly covered by the opaque panel).
+ */
 export default function Statement() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let ticking = false;
+    function update() {
+      ticking = false;
+      const sec = sectionRef.current;
+      const content = contentRef.current;
+      const next = sec?.nextElementSibling as HTMLElement | null;
+      if (!sec || !content || !next) return;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      // 0 while the covering panel is still below the fold; 1 once it has
+      // risen to the top of the viewport (fully covering).
+      let cover = 1 - next.getBoundingClientRect().top / vh;
+      cover = Math.max(0, Math.min(1, cover));
+      content.style.opacity = String(1 - cover);
+      content.style.transform = `scale(${(1 - cover * 0.06).toFixed(4)}) translateY(${(cover * -26).toFixed(1)}px)`;
+    }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        rafRef.current = requestAnimationFrame(update);
+      }
+    }
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
   return (
-    <section className="sticky top-0 z-0 flex min-h-screen items-center justify-center overflow-hidden bg-bg px-5 py-24 sm:px-8">
-      {/* faint oversized arch outline for depth, well behind the text */}
+    <section
+      ref={sectionRef}
+      className="sticky top-0 z-0 flex min-h-screen items-center justify-center overflow-hidden bg-bg px-5 py-24 sm:px-8"
+    >
+      {/* faint oversized arch glow for depth, well behind the text */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2 opacity-[0.5]"
-        style={{
-          background: 'radial-gradient(circle, rgb(var(--brand) / 0.05) 0%, transparent 60%)',
-        }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2"
+        style={{ background: 'radial-gradient(circle, rgb(var(--brand) / 0.05) 0%, transparent 60%)' }}
       />
 
-      <div className="relative mx-auto max-w-3xl text-center">
+      <div
+        ref={contentRef}
+        className="relative mx-auto max-w-3xl text-center"
+        style={{ willChange: 'opacity, transform' }}
+      >
         <span className="mx-auto mb-7 block h-px w-10 bg-brand/55" />
         <h2 className="text-balance font-heading text-[clamp(2rem,5.2vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.015em] text-ink">
           Your website has one job: turn visitors into{' '}

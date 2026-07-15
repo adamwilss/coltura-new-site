@@ -1,5 +1,5 @@
+import Image from 'next/image';
 import SectionLabel from './SectionLabel';
-import ImagePlaceholder from './ImagePlaceholder';
 import RevealGroup from './RevealGroup';
 import type { CSSProperties } from 'react';
 
@@ -13,9 +13,15 @@ const STAGES = [
 export default function Process() {
   return (
     <section id="process" className="relative overflow-hidden bg-bg-secondary">
-      {/* Circular image slot bleeding off the bottom-right corner. */}
-      <div className="absolute -bottom-14 -right-12 hidden h-64 w-64 xl:block xl:h-72 xl:w-72">
-        <ImagePlaceholder label="The studio" ratio="aspect-square" shape="circle" />
+      {/* Circular image bleeding off the bottom-right corner. */}
+      <div className="absolute -bottom-16 -right-14 hidden h-72 w-72 overflow-hidden rounded-full ring-1 ring-line xl:block xl:h-80 xl:w-80">
+        <Image
+          src="/images/studio-lounge.png"
+          alt="A warm, considered studio interior"
+          fill
+          sizes="20rem"
+          className="object-cover"
+        />
       </div>
 
       <RevealGroup className="relative z-10 mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">

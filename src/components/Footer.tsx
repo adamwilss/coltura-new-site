@@ -1,13 +1,13 @@
 import Logo from './Logo';
 import { PHONE_DISPLAY, WHATSAPP_LINK } from '@/lib/whatsapp';
 
-// Real nav pages on the live site: Home, Solutions, Get Started, About, Contact.
 const LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'Solutions', href: '#services' },
-  { label: 'Get Started', href: '#services' },
-  { label: 'About', href: '#footer' },
-  { label: 'Contact', href: '#footer' },
+  { label: 'Solutions', href: '/solutions' },
+  { label: 'How It Works', href: '/how-it-works' },
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Footer() {

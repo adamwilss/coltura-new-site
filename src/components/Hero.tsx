@@ -16,12 +16,10 @@ export default function Hero() {
         style={{ background: 'linear-gradient(180deg, rgb(var(--card) / 0.7) 0%, transparent 100%)' }}
       />
 
-      {/* Desktop: the portal image bleeds off the top-right edge of the page. */}
-      <div className="reveal-6 absolute inset-y-0 right-0 hidden w-[52vw] max-w-[820px] lg:block">
-        <ArchImage shapeClassName="hero-shape-desktop" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20 lg:flex lg:min-h-[660px] lg:items-center lg:py-24">
+      {/* On desktop the portal image lives in a shared wrapper (see page.tsx)
+          so it can span the hero AND the review band beneath, connecting them.
+          Here we only render the contained mobile version. */}
+      <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20 lg:flex lg:min-h-[620px] lg:items-center lg:py-24">
         {/* Copy */}
         <div className="lg:max-w-[48%]">
           <div className="reveal-1">

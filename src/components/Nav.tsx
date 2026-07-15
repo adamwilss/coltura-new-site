@@ -6,13 +6,13 @@ import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
 import WhatsAppButton from './WhatsAppButton';
 
-// Real nav pages on the live site: Home, Solutions, Get Started, About, Contact.
-// This prototype is a single homepage, so these link to in-page sections
-// rather than routes that don't exist in this standalone build.
+// Primary nav — real routes, matching the reference/live-site sitelinks.
 const LINKS = [
-  { label: 'Solutions', href: '#services' },
-  { label: 'How It Works', href: '#process' },
-  { label: 'Contact', href: '#footer' },
+  { label: 'Solutions', href: '/solutions' },
+  { label: 'How It Works', href: '/how-it-works' },
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Nav() {

@@ -11,11 +11,18 @@ const SERVICES = [
   { name: 'Ongoing Growth', icon: TrendingUp, description: 'We test, measure and optimise — so your site keeps getting better every month.' },
 ];
 
-export default function Services() {
+export default function Services({ covering = false }: { covering?: boolean }) {
+  // `covering` = the homepage stacking treatment (rounded top + upward shadow
+  // as it rises over the pinned Statement). Off by default so the section can
+  // be reused as a plain block on other pages.
   return (
     <section
       id="services"
-      className="relative z-10 rounded-t-[2rem] bg-bg-secondary shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.32)] sm:rounded-t-[2.75rem]"
+      className={`bg-bg-secondary ${
+        covering
+          ? 'relative z-10 rounded-t-[2rem] shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.32)] sm:rounded-t-[2.75rem]'
+          : ''
+      }`}
     >
       <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="scroll-reveal mb-12 grid grid-cols-1 gap-x-10 gap-y-4 lg:grid-cols-[1.1fr_1fr] lg:items-end">
