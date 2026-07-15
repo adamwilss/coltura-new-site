@@ -8,7 +8,7 @@ const CAPABILITIES = ['Websites & landing pages', 'SEO & local visibility', 'Goo
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-bg lg:min-h-[660px]">
+    <section className="relative overflow-hidden bg-bg lg:h-[620px]">
       {/* Soft wash of light from the top — subtle atmosphere behind the copy. */}
       <div
         aria-hidden
@@ -19,7 +19,7 @@ export default function Hero() {
       {/* On desktop the portal image lives in a shared wrapper (see page.tsx)
           so it can span the hero AND the review band beneath, connecting them.
           Here we only render the contained mobile version. */}
-      <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20 lg:flex lg:min-h-[620px] lg:items-center lg:py-24">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20 lg:flex lg:h-full lg:items-center lg:py-0">
         {/* Copy */}
         <div className="lg:max-w-[48%]">
           <div className="reveal-1">

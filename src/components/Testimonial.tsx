@@ -18,11 +18,11 @@ export default function Testimonial({ withImage = false }: { withImage?: boolean
         </div>
       )}
 
-      <Reveal className="relative z-10 mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28 lg:py-36 lg:pr-[50%]">
-        <span aria-hidden className="mb-6 block font-heading text-6xl leading-none text-brand/60">
+      <Reveal className="relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-16 sm:px-8 sm:pb-24 sm:pt-20 lg:pb-28 lg:pt-40">
+        <span aria-hidden className="mb-5 block font-heading text-6xl leading-none text-brand/60">
           &ldquo;
         </span>
-        <blockquote className="text-[clamp(1.25rem,2.1vw,1.6rem)] font-normal leading-[1.6] text-white/90">
+        <blockquote className="max-w-3xl text-[clamp(1.3rem,2.2vw,1.75rem)] font-normal leading-[1.55] text-white/90">
           Coltura built our corporate site for Regenovate — a mergers and acquisitions
           firm handling multi-million-pound deals. They balanced credibility with
           clarity, and the site performs flawlessly. Adam doesn&apos;t just build
@@ -30,7 +30,7 @@ export default function Testimonial({ withImage = false }: { withImage?: boolean
           trust it with serious money.
         </blockquote>
 
-        <div className="mt-12 flex items-center gap-4">
+        <div className="mt-10 flex items-center gap-4">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 font-heading text-xs italic text-white/60">
             RW
           </div>
