@@ -89,3 +89,65 @@ body::before {
   outline: 2px solid rgb(var(--brand));
   outline-offset: 2px;
 }
+
+/*
+ * Hero load-in: one orchestrated staggered reveal rather than scattered
+ * micro-interactions. Applied directly on mount (not scroll-triggered,
+ * since the hero is already in view on load).
+ */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-1,
+.reveal-2,
+.reveal-3,
+.reveal-4,
+.reveal-5,
+.reveal-6 {
+  animation: reveal-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.reveal-1 { animation-delay: 40ms; }
+.reveal-2 { animation-delay: 160ms; }
+.reveal-3 { animation-delay: 280ms; }
+.reveal-4 { animation-delay: 400ms; }
+.reveal-5 { animation-delay: 480ms; }
+.reveal-6 { animation-delay: 560ms; }
+
+/*
+ * Scroll-triggered reveal for everything below the fold — toggled by
+ * <Reveal> (src/components/Reveal.tsx) adding .is-visible via
+ * IntersectionObserver. Transform/opacity only, so it stays GPU-composited.
+ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1), transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-1,
+  .reveal-2,
+  .reveal-3,
+  .reveal-4,
+  .reveal-5,
+  .reveal-6 {
+    animation: none;
+  }
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

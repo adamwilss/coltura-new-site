@@ -6,9 +6,16 @@
 // light interface as more trustworthy than a dark one. Dark mode is an
 // opt-in alternative via the toggle, not something sprung on visitors whose
 // OS happens to be set to dark. Only a stored manual choice switches it.
+// A ?theme=dark / ?theme=light query param takes precedence and is persisted
+// (so a shared "?theme=dark" link opens in that theme). Otherwise a stored
+// manual choice applies; failing that, light.
 const THEME_INIT_SCRIPT = `
 (function () {
   try {
+    var param = new URLSearchParams(location.search).get('theme');
+    if (param === 'dark' || param === 'light') {
+      localStorage.setItem('coltura-theme', param);
+    }
     var stored = localStorage.getItem('coltura-theme');
     if (stored === 'dark') document.documentElement.classList.add('dark');
   } catch (e) {}

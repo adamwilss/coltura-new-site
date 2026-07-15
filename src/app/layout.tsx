@@ -1,12 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter, Fraunces } from 'next/font/google';
+import { Newsreader, Fraunces } from 'next/font/google';
 import ThemeInit from '@/components/ThemeInit';
 import './globals.css';
 
-const inter = Inter({
+// Body copy runs in this optical-size serif rather than a UI sans — Inter/
+// system-ui reads as generic app chrome, and a full serif system (Newsreader
+// for text, Fraunces for display) is what actually sells "editorial, ancient
+// document, ultra premium" rather than "React dashboard."
+const newsreader = Newsreader({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-inter',
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-newsreader',
   display: 'swap',
 });
 
@@ -27,7 +32,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${newsreader.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
         <ThemeInit />
       </head>

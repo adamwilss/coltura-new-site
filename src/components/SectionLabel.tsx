@@ -1,26 +1,20 @@
-// A running Roman-numeral index (I, II, III…) ahead of every section
-// eyebrow — the same "reads as one considered document" device Adam
-// already approved on the live site, now given a classical inscription
-// feel: a numeral plus a tapered double rule, like the moulding line under
-// lettering cut into a stone entablature.
+// A clean, single-line section eyebrow: one short brand hairline + a
+// letter-spaced caps label. The earlier version prefixed a Roman numeral
+// and a tapered double rule ("I" + two lines) which read as fussy and
+// vibe-coded — removed per Adam's feedback. This is the restrained,
+// editorial version.
 export default function SectionLabel({
-  index,
   label,
   tone = 'muted',
 }: {
-  index: string;
   label: string;
   tone?: 'muted' | 'brand';
 }) {
   return (
-    <div className="mb-4 flex items-center gap-3">
-      <span className="font-heading text-sm italic text-brand/70">{index}</span>
-      <span className="flex w-8 flex-col gap-[3px]">
-        <span className="h-px w-full bg-brand/60" />
-        <span className="h-px w-5 bg-brand/30" />
-      </span>
+    <div className="mb-5 flex items-center gap-3">
+      <span className={`h-px w-8 shrink-0 ${tone === 'brand' ? 'bg-brand' : 'bg-brand/55'}`} />
       <p
-        className={`text-[0.68rem] font-semibold uppercase tracking-[0.18em] ${
+        className={`text-[0.7rem] font-semibold uppercase tracking-[0.22em] ${
           tone === 'brand' ? 'text-brand' : 'text-muted'
         }`}
       >

@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react';
+import Reveal from './Reveal';
 
 // Compact trust strip right after the hero — only claims already confirmed
 // elsewhere on the live site (mobile-first build, direct relationship with
@@ -13,7 +14,7 @@ const POINTS = [
 export default function TrustPoints() {
   return (
     <section className="bg-bg">
-      <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8">
+      <Reveal className="mx-auto max-w-6xl px-5 py-6 sm:px-8">
         <ul className="flex flex-col flex-wrap gap-x-8 gap-y-3 sm:flex-row sm:items-center sm:justify-center">
           {POINTS.map((point) => (
             <li key={point} className="flex items-center gap-2 text-sm text-muted">
@@ -22,7 +23,7 @@ export default function TrustPoints() {
             </li>
           ))}
         </ul>
-      </div>
+      </Reveal>
     </section>
   );
 }

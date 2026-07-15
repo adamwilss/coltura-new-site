@@ -1,3 +1,5 @@
+import Reveal from './Reveal';
+
 // NEEDS ADAM'S SIGN-OFF before this ships: the brief asked for a dedicated
 // ownership section (domain/hosting/ad-account ownership, no lock-in), which
 // is a strong trust signal for cautious buyers — but nothing in the live
@@ -14,14 +16,10 @@ const DRAFT_CLAIMS = [
 export default function Ownership() {
   return (
     <section className="bg-bg">
-      <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
-        <div className="mb-6 flex flex-wrap items-center gap-3">
-          <span className="font-heading text-sm italic text-brand/70">VII</span>
-          <span className="flex w-8 flex-col gap-[3px]">
-            <span className="h-px w-full bg-brand/60" />
-            <span className="h-px w-5 bg-brand/30" />
-          </span>
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-muted">
+      <Reveal className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mb-5 flex flex-wrap items-center gap-3">
+          <span className="h-px w-8 shrink-0 bg-brand/55" />
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted">
             Ownership
           </p>
           <span className="rounded border border-dashed border-brand/40 bg-brand/10 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide text-brand">
@@ -39,7 +37,7 @@ export default function Ownership() {
             </li>
           ))}
         </ul>
-      </div>
+      </Reveal>
     </section>
   );
 }

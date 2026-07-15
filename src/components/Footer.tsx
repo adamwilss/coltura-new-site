@@ -18,8 +18,8 @@ export default function Footer() {
           <div>
             <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              A website should do more than look good. It should bring in calls
-              and jobs.
+              We build websites that become local business assets, not digital
+              business cards.
             </p>
           </div>
 

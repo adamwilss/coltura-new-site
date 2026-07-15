@@ -20,8 +20,20 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Hysteresis so a scroll position hovering around the threshold can't
+    // flip the state back and forth (that flicker was the "wobble"). The
+    // header height is now constant — only the backdrop/border/shadow
+    // fade in — so toggling this never shifts layout.
+    let state = false;
     function onScroll() {
-      setScrolled(window.scrollY > 8);
+      const y = window.scrollY;
+      if (!state && y > 24) {
+        state = true;
+        setScrolled(true);
+      } else if (state && y < 6) {
+        state = false;
+        setScrolled(false);
+      }
     }
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -36,12 +48,16 @@ export default function Nav() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-line/70 bg-bg/85 backdrop-blur-md">
-      <div
-        className={`mx-auto flex max-w-6xl items-center justify-between px-5 transition-[padding] duration-200 sm:px-8 ${
-          scrolled ? 'py-2.5' : 'py-4'
-        }`}
-      >
+    <header
+      className={`sticky top-0 z-50 w-full border-b transition-colors duration-300 ${
+        scrolled
+          ? 'border-line/70 bg-bg/85 shadow-[0_1px_20px_-8px_rgba(0,0,0,0.18)] backdrop-blur-md'
+          : 'border-transparent bg-bg/0'
+      }`}
+    >
+      {/* Constant vertical padding — no height animation, so the header
+          never changes size on scroll and cannot wobble. */}
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         {/* Left cluster: brand + primary nav, grouped as one unit */}
         <div className="flex items-center gap-10">
           <a href="/" aria-label="Coltura home">

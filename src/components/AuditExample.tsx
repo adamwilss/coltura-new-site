@@ -7,6 +7,7 @@
 // present invented information as real. Swap back to a genuine named case
 // study once one is confirmed and approved.
 import SectionLabel from './SectionLabel';
+import Reveal from './Reveal';
 
 const AUDIT_FINDINGS = [
   'Website loading in 6.8 seconds',
@@ -16,11 +17,35 @@ const AUDIT_FINDINGS = [
   'Weak calls to action',
 ];
 
+// The live site states every Growth Audit covers exactly these 18 areas —
+// real content, pulled from coltura.uk. Included in full because the
+// thoroughness is itself the selling point.
+const AUDIT_AREAS = [
+  'Website performance',
+  'Mobile experience',
+  'Loading speed',
+  'SEO fundamentals',
+  'Google Business Profile',
+  'Local SEO',
+  'Service page quality',
+  'Calls to action',
+  'Trust signals',
+  'Reviews',
+  'Competitor comparison',
+  'Offer positioning',
+  'Google Ads readiness',
+  'Meta Ads readiness',
+  'Landing page opportunities',
+  'Conversion bottlenecks',
+  'AI Search readiness',
+  'Prioritised action plan',
+];
+
 export default function AuditExample() {
   return (
     <section className="bg-bg-secondary">
-      <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-24">
-        <SectionLabel index="VI" label="What A Free Audit May Uncover" />
+      <Reveal className="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-24">
+        <SectionLabel label="What A Free Audit May Uncover" />
         <h2 className="mb-4 font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
           Small problems like these cost local businesses jobs every month.
         </h2>
@@ -60,7 +85,23 @@ export default function AuditExample() {
             </div>
           </div>
         </div>
-      </div>
+
+        <div className="mt-10">
+          <p className="mb-4 text-sm font-medium text-ink">
+            Every Growth Audit covers <span className="text-brand">18 areas</span>, including:
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {AUDIT_AREAS.map((area) => (
+              <li
+                key={area}
+                className="rounded-full border border-line bg-card px-3 py-1 text-xs text-muted"
+              >
+                {area}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Reveal>
     </section>
   );
 }

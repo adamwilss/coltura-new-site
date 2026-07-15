@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import WhatsAppButton from './WhatsAppButton';
 import SectionLabel from './SectionLabel';
+import Reveal from './Reveal';
 
 // Real Growth OS™ inclusions, from src/components/GrowthOS.tsx on the live
 // site — grouped into 4 categories instead of one 13-item bullet wall.
@@ -35,9 +36,9 @@ export default function GrowthOS() {
 
   return (
     <section className="bg-bg">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <Reveal className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="rounded-2xl bg-card p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_20px_40px_-24px_rgba(0,0,0,0.16)] sm:p-10">
-          <SectionLabel index="V" label="Growth OS™" tone="brand" />
+          <SectionLabel label="Growth OS™" tone="brand" />
           <h2 className="mb-3 max-w-lg font-heading text-[clamp(1.5rem,2.8vw,2rem)] font-medium leading-snug text-ink">
             We don&apos;t just fix your site. We make it better every month.
           </h2>
@@ -84,7 +85,7 @@ export default function GrowthOS() {
             </p>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

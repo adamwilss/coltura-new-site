@@ -23,7 +23,10 @@ const config: Config = {
         'on-brand': '#FFFFFF',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'sans-serif'],
+        // Token kept as "sans" for call-site compatibility (font-sans is used
+        // throughout), but it now points at a text serif, not a UI sans —
+        // see the comment in layout.tsx for why.
+        sans: ['var(--font-newsreader)', 'Georgia', 'serif'],
         heading: ['var(--font-fraunces)', 'Georgia', 'serif'],
       },
       transitionDuration: {
