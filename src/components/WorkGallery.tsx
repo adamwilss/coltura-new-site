@@ -1,6 +1,7 @@
 import SectionLabel from './SectionLabel';
 import ImagePlaceholder from './ImagePlaceholder';
-import Reveal from './Reveal';
+import RevealGroup from './RevealGroup';
+import type { CSSProperties } from 'react';
 
 // Real, already-confirmed Coltura client work — Regenovate is confirmed via
 // the named testimonial in Testimonial.tsx; Solar in Sport, Instant Tyre
@@ -18,22 +19,30 @@ const PROJECTS = [
 export default function WorkGallery() {
   return (
     <section className="bg-bg">
-      <Reveal className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-        <SectionLabel label="Recent Work" />
-        <h2 className="mb-10 max-w-lg font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
-          Real businesses, real sites.
-        </h2>
+      <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div className="scroll-reveal">
+          <SectionLabel label="Recent Work" />
+          <h2 className="mb-10 max-w-lg font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
+            Real businesses, real sites.
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Clean, aligned grid (no staggered vertical offset). The slide-in is
+            what sequences the cards, not their resting positions. */}
+        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
           {PROJECTS.map((project, i) => (
-            <div key={project.name} className={i % 2 === 1 ? 'lg:mt-8' : undefined}>
+            <div
+              key={project.name}
+              className="scroll-reveal"
+              style={{ '--sr-delay': `${i * 90}ms` } as CSSProperties}
+            >
               <ImagePlaceholder label={project.name} />
               <p className="mt-3 text-sm font-semibold text-ink">{project.name}</p>
               <p className="text-sm text-muted">{project.description}</p>
             </div>
           ))}
         </div>
-      </Reveal>
+      </RevealGroup>
     </section>
   );
 }

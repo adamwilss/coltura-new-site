@@ -11,7 +11,7 @@ import Reveal from './Reveal';
 export default function Testimonial() {
   return (
     <section className="bg-bg">
-      <Reveal className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8 sm:py-24">
+      <Reveal variant="zoom" className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8 sm:py-24">
         <span
           aria-hidden
           className="block font-heading text-6xl leading-none text-brand/25 sm:text-7xl"

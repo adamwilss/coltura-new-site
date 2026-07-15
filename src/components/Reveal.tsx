@@ -1,13 +1,33 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+
+type Variant = 'up' | 'left' | 'right' | 'zoom';
+
+const VARIANT_CLASS: Record<Variant, string> = {
+  up: '',
+  left: 'sr-left',
+  right: 'sr-right',
+  zoom: 'sr-zoom',
+};
 
 /**
- * Fades + rises a section's content in once it scrolls into view (one-shot —
- * disconnects after firing). Pairs with the `.scroll-reveal` / `.is-visible`
- * CSS in globals.css, which itself no-ops under prefers-reduced-motion.
+ * Settles a block into place once it scrolls into view (one-shot). Pairs with
+ * the `.scroll-reveal` CSS in globals.css, which no-ops under
+ * prefers-reduced-motion. `variant` sets the travel direction; `delay` staggers
+ * it against neighbours.
  */
-export default function Reveal({ children, className = '' }: { children: ReactNode; className?: string }) {
+export default function Reveal({
+  children,
+  className = '',
+  variant = 'up',
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  variant?: Variant;
+  delay?: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -22,7 +42,7 @@ export default function Reveal({ children, className = '' }: { children: ReactNo
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' },
+      { threshold: 0.15, rootMargin: '0px 0px -70px 0px' },
     );
 
     observer.observe(node);
@@ -30,7 +50,11 @@ export default function Reveal({ children, className = '' }: { children: ReactNo
   }, []);
 
   return (
-    <div ref={ref} className={`scroll-reveal ${visible ? 'is-visible' : ''} ${className}`}>
+    <div
+      ref={ref}
+      className={`scroll-reveal ${VARIANT_CLASS[variant]} ${visible ? 'is-visible' : ''} ${className}`}
+      style={{ '--sr-delay': `${delay}ms` } as CSSProperties}
+    >
       {children}
     </div>
   );

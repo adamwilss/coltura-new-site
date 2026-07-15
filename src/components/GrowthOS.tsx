@@ -36,7 +36,7 @@ export default function GrowthOS() {
 
   return (
     <section className="bg-bg">
-      <Reveal className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <Reveal variant="zoom" className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="rounded-2xl bg-card p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_20px_40px_-24px_rgba(0,0,0,0.16)] sm:p-10">
           <SectionLabel label="Growth OS™" tone="brand" />
           <h2 className="mb-3 max-w-lg font-heading text-[clamp(1.5rem,2.8vw,2rem)] font-medium leading-snug text-ink">

@@ -11,6 +11,9 @@
 // manual choice applies; failing that, light.
 const THEME_INIT_SCRIPT = `
 (function () {
+  // Marks that JS is running, before first paint. Scroll-reveal hidden states
+  // are gated on html.js, so if this never runs everything stays visible.
+  document.documentElement.classList.add('js');
   try {
     var param = new URLSearchParams(location.search).get('theme');
     if (param === 'dark' || param === 'light') {
