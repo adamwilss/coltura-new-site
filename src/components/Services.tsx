@@ -17,7 +17,10 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section id="services" className="bg-bg-secondary">
+    <section
+      id="services"
+      className="relative z-10 rounded-t-[2rem] bg-bg-secondary shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.32)] sm:rounded-t-[2.75rem]"
+    >
       <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         {/*
           Asymmetric header (label+heading left, description as a separate
