@@ -9,6 +9,7 @@ import Process from '@/components/Process';
 import GrowthOS from '@/components/GrowthOS';
 import AuditExample from '@/components/AuditExample';
 import Ownership from '@/components/Ownership';
+import BrandNote from '@/components/BrandNote';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -32,6 +33,7 @@ export default function Home() {
       <GrowthOS />
       <AuditExample />
       <Ownership />
+      <BrandNote />
       <Footer />
     </main>
   );
