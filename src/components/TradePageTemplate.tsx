@@ -9,6 +9,8 @@ import SectionLabel from './SectionLabel';
 import CtaBand from './CtaBand';
 import Reveal from './Reveal';
 import RevealGroup from './RevealGroup';
+import Nav from './Nav';
+import Footer from './Footer';
 
 const DEFAULT_FIXES = [
   'Your new website solves this from day one.',
@@ -43,6 +45,7 @@ export default function TradePageTemplate({ trade }: { trade: TradeData }) {
 
   return (
     <main className="relative">
+      <Nav />
       {/* Hero */}
       <PageHeader
         eyebrow={`Websites for ${trade.plural}`}
@@ -211,6 +214,7 @@ export default function TradePageTemplate({ trade }: { trade: TradeData }) {
         title={`Ready to Get Your ${trade.name} Website?`}
         note="Tell us about your business and what you need. We will put together a proposal that makes sense for you — no templates, no surprises."
       />
+      <Footer />
     </main>
   );
 }

@@ -8,6 +8,8 @@ import SectionLabel from './SectionLabel';
 import CtaBand from './CtaBand';
 import Reveal from './Reveal';
 import RevealGroup from './RevealGroup';
+import Nav from './Nav';
+import Footer from './Footer';
 
 const DISTANCE_MAP: Record<string, Record<string, string>> = {
   Cheshire: { Poynton: '10 min', Macclesfield: '20 min', Wilmslow: '15 min', Stockport: '25 min' },
@@ -46,6 +48,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 export default function LocationPageTemplate({ location }: { location: LocationData }) {
   return (
     <main className="relative">
+      <Nav />
       {/* Hero */}
       <PageHeader
         eyebrow={location.name}
@@ -217,6 +220,7 @@ export default function LocationPageTemplate({ location }: { location: LocationD
         title={`Get Your ${location.name} Business Online`}
         note={`Join the local businesses in ${location.name} that trust Coltura with their website.`}
       />
+      <Footer />
     </main>
   );
 }

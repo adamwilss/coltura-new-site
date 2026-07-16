@@ -9,6 +9,8 @@ import SectionLabel from './SectionLabel';
 import CtaBand from './CtaBand';
 import Reveal from './Reveal';
 import RevealGroup from './RevealGroup';
+import Nav from './Nav';
+import Footer from './Footer';
 
 function isPullquote(text: string): boolean {
   if (text.length < 100) return true;
@@ -129,6 +131,7 @@ export default function ResourcePageTemplate({
 
   return (
     <main className="relative">
+      <Nav />
       {/* Hero */}
       <PageHeader
         eyebrow={resource.title}
@@ -239,6 +242,7 @@ export default function ResourcePageTemplate({
 
       {/* CTA */}
       <CtaBand />
+      <Footer />
     </main>
   );
 }

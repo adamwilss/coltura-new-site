@@ -9,6 +9,8 @@ import SectionLabel from './SectionLabel';
 import CtaBand from './CtaBand';
 import Reveal from './Reveal';
 import RevealGroup from './RevealGroup';
+import Nav from './Nav';
+import Footer from './Footer';
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +35,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 export default function ServicePageTemplate({ service }: { service: ServiceData }) {
   return (
     <main className="relative">
+      <Nav />
       {/* Hero */}
       <PageHeader
         eyebrow="Service"
@@ -200,6 +203,7 @@ export default function ServicePageTemplate({ service }: { service: ServiceData 
         title={`Ready for ${service.name}?`}
         note="Tell us about your business and what you need. We will put together a proposal that makes sense for you."
       />
+      <Footer />
     </main>
   );
 }
