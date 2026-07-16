@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Logo from './Logo';
 import { PHONE_DISPLAY, WHATSAPP_LINK } from '@/lib/whatsapp';
 
@@ -16,7 +17,23 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="mb-10 flex flex-col gap-10 sm:flex-row sm:justify-between">
           <div>
-            <Logo />
+            <div className="mb-3 flex items-center gap-3">
+              <Image
+                src="/images/gecko-mark.png"
+                alt=""
+                width={48}
+                height={48}
+                className="h-10 w-10 rounded-xl object-contain dark:hidden"
+              />
+              <Image
+                src="/images/gecko-mark-light.png"
+                alt=""
+                width={48}
+                height={48}
+                className="hidden h-10 w-10 rounded-xl object-contain dark:block"
+              />
+              <Logo />
+            </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               We build websites that become local business assets, not digital
               business cards.

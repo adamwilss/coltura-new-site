@@ -1,8 +1,10 @@
+import Image from 'next/image';
 import WhatsAppButton from './WhatsAppButton';
 import SpotsLeft from './SpotsLeft';
 import Reveal from './Reveal';
 
 // Reusable closing call-to-action band for interior pages.
+// Features the gecko logo prominently above the headline.
 export default function CtaBand({
   title = 'Ready to turn your website into your best salesperson?',
   note = 'Get a free, no-obligation audit — clear, practical feedback on exactly what’s costing you enquiries.',
@@ -13,6 +15,22 @@ export default function CtaBand({
   return (
     <section className="bg-bg-secondary">
       <Reveal className="mx-auto max-w-3xl px-5 py-20 text-center sm:py-28">
+        <div className="mb-8 flex justify-center">
+          <Image
+            src="/images/gecko-mark.png"
+            alt="Coltura Gecko"
+            width={128}
+            height={128}
+            className="h-24 w-24 rounded-3xl object-contain dark:hidden sm:h-28 sm:w-28"
+          />
+          <Image
+            src="/images/gecko-mark-light.png"
+            alt="Coltura Gecko"
+            width={128}
+            height={128}
+            className="hidden h-24 w-24 rounded-3xl object-contain dark:block sm:h-28 sm:w-28"
+          />
+        </div>
         <h2 className="text-balance font-heading text-[clamp(1.8rem,3.6vw,2.6rem)] font-medium leading-tight text-ink">
           {title}
         </h2>

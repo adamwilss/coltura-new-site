@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
@@ -60,7 +61,21 @@ export default function Nav() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         {/* Left cluster: brand + primary nav, grouped as one unit */}
         <div className="flex items-center gap-10">
-          <a href="/" aria-label="Coltura home">
+          <a href="/" aria-label="Coltura home" className="flex items-center gap-2.5">
+            <Image
+              src="/images/gecko-mark.png"
+              alt=""
+              width={48}
+              height={48}
+              className="h-9 w-9 rounded-xl object-contain dark:hidden"
+            />
+            <Image
+              src="/images/gecko-mark-light.png"
+              alt=""
+              width={48}
+              height={48}
+              className="hidden h-9 w-9 rounded-xl object-contain dark:block"
+            />
             <Logo />
           </a>
           <nav className="hidden items-center gap-7 md:flex">
