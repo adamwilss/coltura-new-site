@@ -99,6 +99,10 @@ body::before {
 .hero-shape-desktop {
   border-radius: 46% 0 0 46% / 54% 0 0 54%;
 }
+/* Mirror — curved edge on the RIGHT, bleeds off the left of the page. */
+.hero-shape-desktop-left {
+  border-radius: 0 46% 46% 0 / 0 54% 54% 0;
+}
 
 /*
  * Hero load-in: one orchestrated staggered reveal rather than scattered

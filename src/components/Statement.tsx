@@ -33,8 +33,13 @@ export default function Statement() {
       // risen to the top of the viewport (fully covering).
       let cover = 1 - next.getBoundingClientRect().top / vh;
       cover = Math.max(0, Math.min(1, cover));
-      content.style.opacity = String(1 - cover);
-      content.style.transform = `scale(${(1 - cover * 0.06).toFixed(4)}) translateY(${(cover * -26).toFixed(1)}px)`;
+      // The centred text is the LAST thing the rising panel reaches, so it must
+      // be fully gone before the panel's edge climbs past it — otherwise its
+      // top line pokes above the panel at partial opacity. Complete the fade
+      // early (by ~55% of the cover) so it disappears cleanly behind the panel.
+      const fade = Math.min(1, cover / 0.55);
+      content.style.opacity = String(1 - fade);
+      content.style.transform = `scale(${(1 - fade * 0.05).toFixed(4)}) translateY(${(fade * -24).toFixed(1)}px)`;
     }
     function onScroll() {
       if (!ticking) {
