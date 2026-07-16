@@ -81,13 +81,13 @@ export default function ArchImage({ shapeClassName = 'hero-shape-mobile' }: { sh
             sizes="(min-width: 1024px) 52vw, 90vw"
             className="object-cover"
           />
-          {/* Dusk wash — shown only in dark mode, so a single (clean) photo
-              serves both themes. The alternate dark source photo is NOT used:
-              its laptop screen carries a placeholder client-logo strip that
-              would read as a false client claim. Restore a theme-swap here
-              once a clean dark photo exists. */}
+          {/* Dark ("dusk") wash on the LIGHT theme; the bright photo shows on
+              the DARK theme — so the hero is the dark version on light and the
+              bright/"white" version on dark, mirroring the logo swap. One clean
+              photo serves both (the alternate dark source photo isn't used —
+              its screen carries a placeholder client-logo strip). */}
           <div
-            className="theme-fade absolute inset-0 opacity-0 transition-opacity duration-250 dark:opacity-100"
+            className="theme-fade absolute inset-0 opacity-100 transition-opacity duration-250 dark:opacity-0"
             style={{
               background:
                 'linear-gradient(180deg, rgba(24,17,12,0.55) 0%, rgba(30,20,12,0.42) 45%, rgba(20,14,10,0.6) 100%)',
