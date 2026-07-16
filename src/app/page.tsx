@@ -8,7 +8,7 @@ import Services from '@/components/Services';
 import Showcase from '@/components/Showcase';
 import WorkGallery from '@/components/WorkGallery';
 import Process from '@/components/Process';
-import GrowthOS from '@/components/GrowthOS';
+import Pricing from '@/components/Pricing';
 import AuditExample from '@/components/AuditExample';
 import Ownership from '@/components/Ownership';
 import BrandNote from '@/components/BrandNote';
@@ -43,7 +43,7 @@ export default function Home() {
       <Showcase />
       <WorkGallery />
       <Process />
-      <GrowthOS />
+      <Pricing />
       <AuditExample />
       <Ownership />
       <BrandNote />

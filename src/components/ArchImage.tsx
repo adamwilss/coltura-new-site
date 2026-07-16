@@ -73,26 +73,26 @@ export default function ArchImage({ shapeClassName = 'hero-shape-mobile' }: { sh
             willChange: 'transform',
           }}
         >
+          {/* Two real photos, crossfaded by theme (mirrors the logo swap):
+              the dark/dusk scene on the LIGHT theme, the bright scene on the
+              DARK theme. NOTE: the bright photo's laptop screen shows a
+              placeholder "trusted by" logo strip (Huel / Savage x Fenty /
+              Barry's / Represent) — not real clients; replace before a real
+              launch. */}
           <Image
             src="/images/arch-hero-light.png"
-            alt="A laptop showing a Coltura website design on a wooden desk, seen through a sunlit archway"
+            alt="A Coltura website on a laptop in a warm, dusk-lit plaster archway"
             fill
             priority
             sizes="(min-width: 1024px) 52vw, 90vw"
-            className="object-cover"
+            className="theme-fade object-cover opacity-100 transition-opacity duration-250 dark:opacity-0"
           />
-          {/* Dark ("dusk") wash on the LIGHT theme; the bright photo shows on
-              the DARK theme — so the hero is the dark version on light and the
-              bright/"white" version on dark, mirroring the logo swap. One clean
-              photo serves both (the alternate dark source photo isn't used —
-              its screen carries a placeholder client-logo strip). */}
-          <div
-            className="theme-fade absolute inset-0 opacity-100 transition-opacity duration-250 dark:opacity-0"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(24,17,12,0.55) 0%, rgba(30,20,12,0.42) 45%, rgba(20,14,10,0.6) 100%)',
-              mixBlendMode: 'multiply',
-            }}
+          <Image
+            src="/images/arch-hero-dark.png"
+            alt="A Coltura website on a laptop in a bright, sunlit plaster archway"
+            fill
+            sizes="(min-width: 1024px) 52vw, 90vw"
+            className="theme-fade object-cover opacity-0 transition-opacity duration-250 dark:opacity-100"
           />
         </div>
 
