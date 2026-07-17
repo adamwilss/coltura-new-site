@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import Image from 'next/image';
 import { Phone, Eye, Compass, Smartphone, Zap, ShieldCheck, MousePointerClick, MapPin, Mail, FileText } from 'lucide-react';
 
 import Nav from '@/components/Nav';
@@ -59,13 +60,15 @@ const PROCESS_STEPS = [
   { step: '04', title: 'You decide what happens next', desc: 'If small fixes will do it, I’ll say so — do them yourself, free. If a rebuild makes sense, I’ll show you exactly what I’d build. No chasing.' },
 ];
 
-// Quiet proof strip — replaces the testimonial card grid. Every line is drawn
-// from the client's own approved quote; nothing invented, no made-up numbers.
+// Quiet proof strip — replaces the testimonial card grid. Screenshots are the
+// real sites. Regenovate / ERPExperts / Solar in Sport lines are drawn from the
+// clients' own approved quotes. The Dress Agency quote is a DRAFT awaiting the
+// owner's sign-off — the visible tag stays until they approve the wording.
 const BUILDS = [
-  { name: 'Regenovate', role: 'Mergers & acquisitions', line: '“Credibility with clarity” for multi-million-pound deals — “the site performs flawlessly.”', url: 'https://www.regenovate.co.uk/', displayUrl: 'regenovate.co.uk' },
-  { name: 'ERPExperts', role: 'ERP implementation & support', line: '“Fast, professional, and actually brings in enquiries.”', url: '', displayUrl: '' },
-  { name: 'Solar in Sport', role: 'Solar for grassroots clubs', line: 'A complex offer explained clearly — driving club enquiries across the UK.', url: 'https://solarinsport.uk/', displayUrl: 'solarinsport.uk' },
-  { name: 'Build to Retire', role: 'Property investment', line: '“A site we are proud to send people to” — clean, professional, fast turnaround.', url: '', displayUrl: '' },
+  { name: 'Regenovate', role: 'Mergers & acquisitions', img: '/images/builds/regenovate.png', line: '“Credibility with clarity” for multi-million-pound deals — “the site performs flawlessly.”', url: 'https://www.regenovate.co.uk/', displayUrl: 'regenovate.co.uk', draft: false },
+  { name: 'ERPExperts', role: 'ERP implementation & support', img: '/images/builds/erp-experts.png', line: '“Fast, professional, and actually brings in enquiries.”', url: '', displayUrl: '', draft: false },
+  { name: 'Solar in Sport', role: 'Solar for grassroots clubs', img: '/images/builds/solar-in-sport.png', line: 'A complex offer explained clearly — driving club enquiries across the UK.', url: 'https://solarinsport.uk/', displayUrl: 'solarinsport.uk', draft: false },
+  { name: 'The Dress Agency', role: 'Preloved designer fashion · Hazel Grove', img: '/images/builds/dress-agency.png', line: '“Adam understood the shop straight away — the site feels like walking through our door. Elegant, effortless, and new faces mention it every week.” — Owner', url: 'https://www.thedress.agency/', displayUrl: 'thedress.agency', draft: true },
 ];
 
 const FAQS = [
@@ -168,11 +171,20 @@ export default function GetStartedPage() {
                 &ldquo;Adam doesn&rsquo;t just build websites. He understands what a business needs to
                 look like before people trust it with serious money.&rdquo;
               </blockquote>
-              <figcaption className="mt-2.5 text-xs text-muted">
-                <span className="font-semibold text-ink">Ric Wilson</span> — Owner,{' '}
-                <a href="https://www.regenovate.co.uk/" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
-                  Regenovate
-                </a>
+              <figcaption className="mt-3 flex items-center gap-3">
+                <Image
+                  src="/images/ric-wilson.png"
+                  alt="Ric Wilson, owner of Regenovate"
+                  width={44}
+                  height={44}
+                  className="h-11 w-11 shrink-0 rounded-full border border-line object-cover"
+                />
+                <span className="text-xs leading-relaxed text-muted">
+                  <span className="font-semibold text-ink">Ric Wilson</span> — Owner,{' '}
+                  <a href="https://www.regenovate.co.uk/" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
+                    Regenovate
+                  </a>
+                </span>
               </figcaption>
             </figure>
           </div>
@@ -311,14 +323,26 @@ export default function GetStartedPage() {
               Sites doing this job for real businesses right now.
             </h2>
           </div>
-          <div className="grid grid-cols-1 border-t border-line lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {BUILDS.map((b, i) => (
-              <div
-                key={b.name}
-                className="scroll-reveal border-b border-line py-8 lg:border-b-0 lg:border-l lg:py-2 lg:pl-6 lg:pr-4 lg:[&:first-child]:border-l-0 lg:[&:first-child]:pl-0"
-                style={{ '--sr-delay': `${i * 90}ms` } as CSSProperties}
-              >
-                <h3 className="font-heading text-lg font-medium text-ink">{b.name}</h3>
+              <div key={b.name} className="scroll-reveal" style={{ '--sr-delay': `${i * 90}ms` } as CSSProperties}>
+                <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-xl border border-line bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_14px_34px_-18px_rgba(0,0,0,0.14)]">
+                  <Image
+                    src={b.img}
+                    alt={`${b.name} website, built by Coltura`}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-heading text-lg font-medium text-ink">{b.name}</h3>
+                  {b.draft && (
+                    <span className="rounded border border-dashed border-brand/40 bg-brand/10 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide text-brand">
+                      Draft quote — needs owner sign-off
+                    </span>
+                  )}
+                </div>
                 <p className="mb-3 mt-0.5 text-xs uppercase tracking-[0.08em] text-muted">{b.role}</p>
                 <p className="max-w-xs text-sm leading-relaxed text-muted">{b.line}</p>
                 {b.url && (
