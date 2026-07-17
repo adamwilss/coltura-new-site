@@ -5,19 +5,30 @@ import TrustPoints from '@/components/TrustPoints';
 import Testimonial from '@/components/Testimonial';
 import Statement from '@/components/Statement';
 import Services from '@/components/Services';
-import Showcase from '@/components/Showcase';
-import WorkGallery from '@/components/WorkGallery';
+import WorkHorizontal from '@/components/WorkHorizontal';
 import Process from '@/components/Process';
+import PhoneRings from '@/components/PhoneRings';
 import PricingTeaser from '@/components/PricingTeaser';
 import AuditExample from '@/components/AuditExample';
 import Ownership from '@/components/Ownership';
 import BugPromise from '@/components/BugPromise';
 import BrandNote from '@/components/BrandNote';
+import ScrollProgress from '@/components/ScrollProgress';
 import Footer from '@/components/Footer';
 
+/**
+ * The homepage is structured as a performance, not a brochure — each act is
+ * a demonstration of the craft it's selling:
+ *   1. The Renovation (inside Hero): the page fixes itself on arrival.
+ *   2. Statement → Services: the pinned line the next panel rises over.
+ *   3. WorkHorizontal: four real sites travel past while the section pins.
+ *   4. PhoneRings: the closer — what all of it is actually for.
+ *   5. BugPromise: the gecko eats UI defects, then promises to keep doing so.
+ */
 export default function Home() {
   return (
     <main className="relative">
+      <ScrollProgress />
       <Nav />
 
       {/* Hero image is a distinct portal on the right that overhangs DOWN into
@@ -41,9 +52,9 @@ export default function Home() {
         <Services covering />
       </div>
 
-      <Showcase />
-      <WorkGallery />
+      <WorkHorizontal />
       <Process />
+      <PhoneRings />
       <PricingTeaser />
       <AuditExample />
       <Ownership />

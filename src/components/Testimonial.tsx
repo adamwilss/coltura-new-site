@@ -31,9 +31,13 @@ export default function Testimonial({ withImage = false }: { withImage?: boolean
         </blockquote>
 
         <div className="mt-10 flex items-center gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 font-heading text-xs italic text-white/60">
-            RW
-          </div>
+          <Image
+            src="/images/ric-wilson.png"
+            alt="Ric Wilson, owner of Regenovate"
+            width={48}
+            height={48}
+            className="h-12 w-12 shrink-0 rounded-full border border-white/20 object-cover"
+          />
           <div>
             <p className="text-sm font-semibold text-white/90">Ric Wilson</p>
             <p className="mt-0.5 text-xs leading-relaxed text-white/50">

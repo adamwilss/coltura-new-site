@@ -4,6 +4,7 @@ import WhatsAppButton from './WhatsAppButton';
 import MagneticButton from './MagneticButton';
 import SpotsLeft from './SpotsLeft';
 import SectionLabel from './SectionLabel';
+import Renovation from './Renovation';
 
 const CAPABILITIES = ['Websites & landing pages', 'SEO & local visibility', 'Google & Meta ads'];
 
@@ -67,6 +68,8 @@ export default function Hero() {
               Prefer to speak first? Request a callback
             </a>
             <SpotsLeft />
+            {/* The Renovation: 2003-website overlay + wipe, plus its replay pill. */}
+            <Renovation />
           </div>
         </div>
 
