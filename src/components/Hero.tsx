@@ -1,6 +1,7 @@
 import { Phone } from 'lucide-react';
 import ArchImage from './ArchImage';
 import WhatsAppButton from './WhatsAppButton';
+import MagneticButton from './MagneticButton';
 import SpotsLeft from './SpotsLeft';
 import SectionLabel from './SectionLabel';
 
@@ -46,7 +47,9 @@ export default function Hero() {
           </div>
 
           <div className="reveal-4 mb-3 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-            <WhatsAppButton label="Get My Free Audit" className="w-full sm:w-auto" />
+            <MagneticButton strength={0.15} className="block w-full sm:inline-block sm:w-auto">
+              <WhatsAppButton label="Get My Free Audit" className="w-full" />
+            </MagneticButton>
             <a
               href="#services"
               className="inline-flex min-h-14 w-full items-center justify-center rounded-lg border border-line px-8 text-sm font-semibold text-ink transition-colors hover:border-ink/30 sm:w-auto"

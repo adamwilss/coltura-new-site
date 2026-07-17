@@ -48,6 +48,14 @@ export default function Home() {
       <Ownership />
       <BrandNote />
       <Footer />
+
+      {/* DEV ONLY — remove before launch. Temporary quick link to the ads landing funnel. */}
+      <a
+        href="/get-started"
+        className="fixed bottom-4 right-4 z-50 rounded-full border border-brand/30 bg-card/90 px-3.5 py-2 text-xs font-semibold text-brand shadow-[0_8px_24px_-8px_rgba(0,0,0,0.3)] backdrop-blur transition-colors hover:bg-card"
+      >
+        DEV → Get Started
+      </a>
     </main>
   );
 }
