@@ -7,7 +7,10 @@ import SectionLabel from '@/components/SectionLabel';
 import Reveal from '@/components/Reveal';
 import RevealGroup from '@/components/RevealGroup';
 import Counter from '@/components/Counter';
-import AuditForm from '@/components/AuditForm';
+import ArchImage from '@/components/ArchImage';
+import MagneticButton from '@/components/MagneticButton';
+import AuditFunnel from '@/components/AuditFunnel';
+import PdfPreview from '@/components/PdfPreview';
 import LeadAnalytics from '@/components/LeadAnalytics';
 import SpotsLeft from '@/components/SpotsLeft';
 import FaqItem from './FaqItem';
@@ -19,11 +22,11 @@ import { generateMetadata as buildMetadata, generateFAQPageSchema, generateLocal
 export const metadata = buildMetadata({
   title: 'Free Website Growth Audit for Local Businesses | Coltura',
   description:
-    'Get a free, human-reviewed growth audit of your website in 48 hours. Fill in the short form and we’ll show you exactly what’s costing you enquiries — and how to fix it. Normally £99, yours free.',
+    'Get a free, human-reviewed growth audit of your website in 48 hours. Answer a few quick questions and we’ll show you exactly what’s costing you enquiries — and how to fix it. Normally £99, yours free.',
   keywords: ['free website audit', 'website review', 'growth audit', 'local business website', 'Cheshire web design'],
   canonical: 'https://coltura.uk/get-started',
   ogTitle: 'Is your website costing you customers? Get a free audit.',
-  ogDescription: 'A real person reviews your site by hand and emails you clear, practical feedback within 48 hours. Normally £99, yours free.',
+  ogDescription: 'A real person reviews your site by hand and sends you clear, practical feedback within 48 hours. Normally £99, yours free.',
 });
 
 /* ── Data ─────────────────────────────────────────────────────────────── */
@@ -53,9 +56,9 @@ const WEBSITE_PROBLEMS = [
 ];
 
 const PROCESS_STEPS = [
-  { step: '01', title: 'You send us your site', desc: 'Fill in the short form with your details and web address. Takes under a minute — no back-and-forth.' },
+  { step: '01', title: 'Answer a few quick questions', desc: 'Your website, your trade and what you want more of. Takes under a minute — no long forms.' },
   { step: '02', title: 'A real person reviews it', desc: 'Not a bot. We go through your homepage, service and contact pages and your mobile experience by hand.' },
-  { step: '03', title: 'You get a branded PDF', desc: 'Within 48 hours: a clear, branded audit showing what works, what doesn’t, and what to fix first.' },
+  { step: '03', title: 'You get a branded audit', desc: 'Within 48 hours: a clear, branded audit showing what works, what doesn’t, and what to fix first.' },
   { step: '04', title: 'No pushy sales call', desc: 'If it only needs small fixes, we’ll tell you — free. If a rebuild makes sense, we’ll show you what we’d build. No pressure.' },
 ];
 
@@ -68,7 +71,7 @@ const TESTIMONIALS = [
 
 const FAQS = [
   { question: 'Is the audit really free?', answer: 'Yes. No cost, no obligation, no hidden charges. We review your site and send you honest feedback. That is it.' },
-  { question: 'How does it work — do I need to fill in a form?', answer: 'Just the short form above: your name, website and what you want more of. It takes under a minute. Prefer WhatsApp or a call? Those work too.' },
+  { question: 'How does it work?', answer: 'Answer a few quick questions — your website, your trade and what you want more of. It takes under a minute. Prefer WhatsApp or a call? Those work too.' },
   { question: 'How long does the audit take?', answer: 'We aim to send your audit within 48 hours of receiving your details.' },
   { question: 'Will you try to sell me something?', answer: 'No. The audit is genuinely free and useful on its own. If your site needs a rebuild, we will explain why and what it would cost. If it only needs small fixes, we will tell you that too.' },
   { question: 'Do I need a new website?', answer: 'Not necessarily. Many businesses just need small improvements. We will tell you honestly whether a rebuild makes sense or whether tweaks will do the job.' },
@@ -76,6 +79,9 @@ const FAQS = [
 ];
 
 const CHECKS = ['Free, no obligation', 'Reviewed by a human', 'Back in 48 hours'];
+
+const CTA_PRIMARY =
+  'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg bg-brand px-8 text-sm font-bold tracking-[0.01em] text-on-brand shadow-[0_10px_24px_-8px_rgba(223,44,50,0.45)] transition-transform hover:scale-[1.02] active:scale-[0.98] sm:w-auto';
 
 function StarRow({ className = '' }: { className?: string }) {
   return (
@@ -96,23 +102,22 @@ export default function GetStartedPage() {
     <main className="relative">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <LeadAnalytics />
+      <AuditFunnel />
       <Nav />
 
-      {/* ── HERO — copy left, lead form right (above the fold) ──────────── */}
-      <section className="relative overflow-hidden bg-bg">
+      {/* ── HERO — copy left, arch image right; CTA opens the funnel ────── */}
+      <section className="relative overflow-hidden bg-bg lg:h-[620px]">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-72"
           style={{ background: 'linear-gradient(180deg, rgb(var(--card) / 0.7) 0%, transparent 100%)' }}
         />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-[-10%] top-[-10%] h-[520px] w-[520px] rounded-full"
-          style={{ background: 'radial-gradient(circle, rgb(var(--brand) / 0.06) 0%, transparent 65%)' }}
-        />
-        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 pb-16 pt-28 sm:px-8 sm:pt-32 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16 lg:pb-24">
-          {/* Copy */}
-          <div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46vw] max-w-[720px] lg:block">
+          <ArchImage shapeClassName="hero-shape-desktop" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-28 sm:px-8 sm:pt-32 lg:flex lg:h-full lg:items-center lg:py-0">
+          <div className="lg:max-w-[52%]">
             <div className="reveal-1">
               <SectionLabel label="Free Growth Audit" tone="brand" />
             </div>
@@ -120,33 +125,43 @@ export default function GetStartedPage() {
               Is your website costing you <span className="text-brand">customers?</span>
             </h1>
             <p className="reveal-3 mb-6 max-w-[34rem] text-lg leading-relaxed text-muted">
-              Send us your site and a real person reviews it by hand — then emails you a clear,
-              honest audit within 48 hours, showing exactly what’s costing you enquiries and how to
-              fix it. <span className="font-medium text-ink">Normally £99. Yours free.</span>
+              Answer a few quick questions and a real person reviews your site by hand — then sends
+              back a clear, honest audit within 48 hours, showing exactly what’s costing you
+              enquiries and how to fix it. <span className="font-medium text-ink">Normally £99. Yours free.</span>
             </p>
-            <div className="reveal-4 mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">
-              <span className="flex items-center gap-1.5"><StarRow /> Trusted by Cheshire businesses</span>
+            <div className="reveal-4 mb-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+              <MagneticButton strength={0.18} className="block w-full sm:inline-block sm:w-auto">
+                <button type="button" data-audit-funnel className={CTA_PRIMARY}>
+                  Get My Free Audit
+                </button>
+              </MagneticButton>
+              <a
+                href="tel:+447958394808"
+                className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg border border-line px-8 text-sm font-semibold text-ink transition-colors hover:border-ink/30 sm:w-auto"
+              >
+                <Phone size={15} strokeWidth={1.75} />
+                Or call {PHONE_DISPLAY}
+              </a>
             </div>
-            <ul className="reveal-5 mb-7 space-y-2.5">
+            <div className="reveal-5 mb-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted">
+              <span className="flex items-center gap-1.5"><StarRow /> Trusted by Cheshire businesses</span>
               {CHECKS.map((t) => (
-                <li key={t} className="flex items-center gap-2.5 text-sm text-ink">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand/10">
-                    <svg className="h-3 w-3 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
+                <span key={t} className="flex items-center gap-1.5">
+                  <svg className="h-3.5 w-3.5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
                   {t}
-                </li>
+                </span>
               ))}
-            </ul>
+            </div>
             <div className="reveal-6">
               <SpotsLeft />
             </div>
           </div>
 
-          {/* Lead form */}
-          <div className="reveal-3">
-            <AuditForm id="audit-form" />
+          {/* Mobile: arch image beneath the copy */}
+          <div className="relative mx-auto mt-12 aspect-[4/5] w-full max-w-[420px] lg:hidden">
+            <ArchImage shapeClassName="hero-shape-mobile" />
           </div>
         </div>
       </section>
@@ -186,11 +201,7 @@ export default function GetStartedPage() {
             {WHAT_WE_CHECK.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div
-                  key={i}
-                  className="scroll-reveal"
-                  style={{ '--sr-delay': `${(i % 4) * 80}ms` } as CSSProperties}
-                >
+                <div key={i} className="scroll-reveal" style={{ '--sr-delay': `${(i % 4) * 80}ms` } as CSSProperties}>
                   <Icon size={20} strokeWidth={1.5} className="mb-3 text-brand" />
                   <h4 className="mb-1 text-sm font-semibold text-ink">{item.title}</h4>
                   <p className="text-sm leading-relaxed text-muted">{item.desc}</p>
@@ -201,7 +212,7 @@ export default function GetStartedPage() {
         </RevealGroup>
       </section>
 
-      {/* ── REAL SAMPLE AUDIT (embedded PDF) ───────────────────────────── */}
+      {/* ── REAL SAMPLE AUDIT (embedded PDF w/ loading state) ──────────── */}
       <section className="bg-bg-secondary">
         <Reveal className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
@@ -214,30 +225,16 @@ export default function GetStartedPage() {
                 A real Coltura growth audit — clear, branded, and practical. No jargon, no filler.
                 Just what’s working, what isn’t, and what to fix first.
               </p>
-              <a
-                href="#audit-form"
-                className="inline-flex min-h-14 items-center justify-center gap-2.5 rounded-lg bg-brand px-8 text-sm font-bold tracking-[0.01em] text-on-brand shadow-[0_10px_24px_-8px_rgba(223,44,50,0.45)] transition-transform hover:scale-[1.02] active:scale-[0.98]"
-              >
+              <button type="button" data-audit-funnel className={CTA_PRIMARY}>
                 Get mine free
-              </a>
+              </button>
             </div>
 
             <div>
-              <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_28px_56px_-28px_rgba(0,0,0,0.24)]">
-                <div className="flex items-center gap-2.5 border-b border-line px-4 py-3">
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-brand" />
-                  <span className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted">Coltura Growth Audit</span>
-                  <span className="ml-auto shrink-0 rounded border border-brand/25 bg-brand/10 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide text-brand">
-                    Real example
-                  </span>
-                </div>
-                <iframe
-                  src="/coltura-sample-site-audit.pdf#toolbar=0&navpanes=0&view=FitH"
-                  title="Example Coltura Growth Audit"
-                  loading="lazy"
-                  className="h-[500px] w-full bg-white sm:h-[620px]"
-                />
-              </div>
+              <PdfPreview
+                src="/coltura-sample-site-audit.pdf#toolbar=0&navpanes=0&view=FitH"
+                title="Example Coltura Growth Audit"
+              />
               <a
                 href="/coltura-sample-site-audit.pdf"
                 target="_blank"
@@ -279,7 +276,9 @@ export default function GetStartedPage() {
           </div>
           <p className="mt-10 text-sm text-muted">
             Not sure which is hurting you?{' '}
-            <a href="#audit-form" className="font-medium text-brand hover:underline">Send us your site</a>{' '}
+            <button type="button" data-audit-funnel className="font-medium text-brand hover:underline">
+              Get your free audit
+            </button>{' '}
             and we’ll tell you — or{' '}
             <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="font-medium text-brand hover:underline">
               message us on WhatsApp
@@ -295,16 +294,12 @@ export default function GetStartedPage() {
             <div>
               <SectionLabel label="The Process" />
               <h2 className="font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
-                What happens after you submit.
+                What happens after you ask.
               </h2>
             </div>
             <ol className="relative grid grid-cols-1 gap-y-9 sm:grid-cols-2 lg:gap-x-8">
               {PROCESS_STEPS.map((stage, i) => (
-                <li
-                  key={stage.step}
-                  className="scroll-reveal relative pl-14"
-                  style={{ '--sr-delay': `${i * 90}ms` } as CSSProperties}
-                >
+                <li key={stage.step} className="scroll-reveal relative pl-14" style={{ '--sr-delay': `${i * 90}ms` } as CSSProperties}>
                   <span
                     aria-hidden
                     className="absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-full bg-brand font-heading text-xs font-semibold text-on-brand ring-4 ring-bg-secondary"
@@ -358,8 +353,8 @@ export default function GetStartedPage() {
         </RevealGroup>
       </section>
 
-      {/* ── BUG PROMISE ────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-bg-secondary">
+      {/* ── BUG PROMISE — permanently dark so the animation reads right ── */}
+      <section className="dark relative overflow-hidden bg-bg-secondary">
         <Reveal className="mx-auto grid max-w-5xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-16">
           <div>
             <SectionLabel label="Bug Free Care" />
@@ -406,15 +401,12 @@ export default function GetStartedPage() {
             Find out what your website is missing.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted">
-            Send us your site and get honest, practical feedback within 48 hours — no pressure, no jargon, no obligation.
+            Answer a few quick questions and get honest, practical feedback within 48 hours — no pressure, no jargon, no obligation.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="#audit-form"
-              className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg bg-brand px-10 text-sm font-bold tracking-[0.01em] text-on-brand shadow-[0_10px_24px_-8px_rgba(223,44,50,0.45)] transition-transform hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
-            >
+            <button type="button" data-audit-funnel className={CTA_PRIMARY.replace('px-8', 'px-10')}>
               Get my free audit
-            </a>
+            </button>
             <a
               href="tel:+447958394808"
               className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg border border-line px-8 text-sm font-semibold text-ink transition-colors hover:border-ink/30 sm:w-auto"
@@ -431,15 +423,16 @@ export default function GetStartedPage() {
 
       <Footer />
 
-      {/* Sticky mobile CTA — form is the primary action */}
+      {/* Sticky mobile CTA — opens the funnel */}
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-line/70 bg-bg/95 p-3 backdrop-blur-md lg:hidden">
         <div className="flex gap-2">
-          <a
-            href="#audit-form"
+          <button
+            type="button"
+            data-audit-funnel
             className="flex flex-[2] items-center justify-center gap-2 rounded-lg bg-brand py-3 text-sm font-bold text-on-brand transition-transform active:scale-[0.98]"
           >
             Get my free audit
-          </a>
+          </button>
           <a
             href="tel:+447958394808"
             className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-line py-3 text-sm font-semibold text-ink"

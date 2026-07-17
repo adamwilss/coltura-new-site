@@ -15,20 +15,23 @@ const MONTH_NAMES = [
  * match server HTML, then updates on mount.
  */
 export default function SpotsLeft({ className = '' }: { className?: string }) {
-  const [spots, setSpots] = useState(MONTHLY_QUOTA - 1);
-  const [month, setMonth] = useState('');
-
+  // Seed from the current date (build time on the server, load time on the
+  // client), then refresh on mount so a long-lived tab always shows the right
+  // month/spots. suppressHydrationWarning covers the rare build-vs-view month
+  // boundary — the effect re-renders it to the current value immediately.
+  const [now, setNow] = useState(() => new Date());
   useEffect(() => {
-    const now = new Date();
-    setSpots(getSpotsLeft(now));
-    setMonth(MONTH_NAMES[now.getMonth()]);
+    setNow(new Date());
   }, []);
 
+  const spots = getSpotsLeft(now);
+  const month = MONTH_NAMES[now.getMonth()];
+
   return (
-    <p className={`text-xs text-muted ${className}`}>
+    <p suppressHydrationWarning className={`text-xs text-muted ${className}`}>
       I personally complete each audit, so I take on {MONTHLY_QUOTA} businesses a month.{' '}
       <span className="font-medium text-ink">
-        {spots} space{spots === 1 ? '' : 's'} remain{month ? ` for ${month}` : ''}.
+        {spots} space{spots === 1 ? '' : 's'} remain for {month}.
       </span>
     </p>
   );

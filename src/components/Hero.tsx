@@ -20,19 +20,19 @@ export default function Hero() {
       {/* On desktop the portal image lives in a shared wrapper (see page.tsx)
           so it can span the hero AND the review band beneath, connecting them.
           Here we only render the contained mobile version. */}
-      <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20 lg:flex lg:h-full lg:items-center lg:py-0">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-16 sm:px-8 sm:pt-24 lg:flex lg:h-full lg:items-center lg:py-0">
         {/* Copy */}
-        <div className="lg:max-w-[48%]">
+        <div className="lg:max-w-[56%]">
           <div className="reveal-1">
             <SectionLabel label="Customer Acquisition Systems" />
           </div>
 
-          <h1 className="reveal-2 mb-5 text-balance font-heading text-[clamp(2.25rem,5.2vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-ink">
+          <h1 className="reveal-2 mb-6 font-heading text-[clamp(2.75rem,7vw,5rem)] font-semibold uppercase leading-[0.95] tracking-[-0.02em] text-ink">
             Websites that bring in calls,{' '}
             <span className="text-brand">not just clicks.</span>
           </h1>
 
-          <p className="reveal-3 mb-6 max-w-[34rem] text-lg leading-relaxed text-muted">
+          <p className="reveal-3 mb-7 max-w-[36rem] text-lg leading-relaxed text-muted sm:text-xl">
             We design strategic websites that turn interest into real enquiries — and
             consistently win local business.
           </p>
