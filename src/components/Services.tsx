@@ -12,19 +12,24 @@ const SERVICES = [
 ];
 
 export default function Services({ covering = false }: { covering?: boolean }) {
-  // `covering` = the homepage stacking treatment (rounded top + upward shadow
-  // as it rises over the pinned Statement). Off by default so the section can
-  // be reused as a plain block on other pages.
+  // `covering` = the homepage stacking treatment: the section is at least a full
+  // viewport tall and sits in front (z-10) so, as the page scrolls, it rises up
+  // and fully covers the pinned Statement behind it (see page.tsx). It MUST be
+  // >= the viewport height — a panel shorter than the screen can never fully
+  // cover the full-height pinned Statement, and its height is also what keeps
+  // the Statement pinned (stationary) for the full travel of the cover. Content
+  // is vertically centred so it reads well both while rising and at rest. Off by
+  // default so the section can be reused as a plain block on other pages.
   return (
     <section
       id="services"
       className={`bg-bg-secondary ${
         covering
-          ? 'relative z-10 rounded-t-[2rem] shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.32)] sm:rounded-t-[2.75rem]'
+          ? 'relative z-10 flex min-h-screen flex-col justify-center rounded-t-[2rem] shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.32)] sm:rounded-t-[2.75rem]'
           : ''
       }`}
     >
-      <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <RevealGroup className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="scroll-reveal mb-12 grid grid-cols-1 gap-x-10 gap-y-4 lg:grid-cols-[1.1fr_1fr] lg:items-end">
           <div>
             <SectionLabel label="What We Do" />
