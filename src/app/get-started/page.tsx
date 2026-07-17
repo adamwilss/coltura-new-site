@@ -20,65 +20,64 @@ import { generateMetadata as buildMetadata, generateFAQPageSchema, generateLocal
 
 /* ── SEO ──────────────────────────────────────────────────────────────── */
 export const metadata = buildMetadata({
-  title: 'Free Website Growth Audit for Local Businesses | Coltura',
+  title: 'Free Website Audit — Find the Leak Costing You Enquiries | Coltura',
   description:
-    'Get a free, human-reviewed growth audit of your website in 48 hours. Answer a few quick questions and we’ll show you exactly what’s costing you enquiries — and how to fix it. Normally £99, yours free.',
+    'Your website is leaking enquiries. Send it over and I’ll review it personally — a clear, branded audit back within 48 hours showing exactly what to fix first. Normally £99, free this month.',
   keywords: ['free website audit', 'website review', 'growth audit', 'local business website', 'Cheshire web design'],
   canonical: 'https://coltura.uk/get-started',
-  ogTitle: 'Is your website costing you customers? Get a free audit.',
-  ogDescription: 'A real person reviews your site by hand and sends you clear, practical feedback within 48 hours. Normally £99, yours free.',
+  ogTitle: 'Your website is leaking enquiries. Find out where — free.',
+  ogDescription: 'A real person reviews your site by hand and sends a branded, prioritised audit within 48 hours. Normally £99. Yours free.',
 });
 
-/* ── Data ─────────────────────────────────────────────────────────────── */
+/* ── Copy ─────────────────────────────────────────────────────────────── */
+// One CTA verb, everywhere. "Review my website free" describes exactly what
+// happens next and reinforces the human element.
+const CTA_LABEL = 'Review my website free';
+
+// Sourced stats only — an unsourced number costs more trust than it buys.
 const STATS = [
-  { to: 53, suffix: '%', label: 'of mobile visitors leave a site that takes over 3 seconds to load.' },
-  { to: 7, suffix: '%', label: 'fewer conversions for every 1 second of extra load time.' },
-  { to: 70, suffix: '%', label: 'of local searches happen on a phone — where most sites struggle.' },
+  { to: 53, suffix: '%', label: 'of mobile visitors abandon a site that takes over 3 seconds to load.', source: 'Google' },
+  { to: 7, suffix: '%', label: 'of conversions lost for every extra second a page takes to load.', source: 'Aberdeen Group' },
+  { to: 76, suffix: '%', label: 'of people who search locally on their phone visit a business within 24 hours.', source: 'Google' },
 ];
 
 const WHAT_WE_CHECK = [
-  { icon: Eye, title: 'First impression', desc: 'What a visitor sees in the first 3 seconds — is it clear what you do?' },
-  { icon: Compass, title: 'Clarity of offer', desc: 'Can someone understand your service and why to choose you within seconds?' },
-  { icon: Smartphone, title: 'Mobile experience', desc: 'Over 70% of local searches happen on phones. Does your site work on them?' },
-  { icon: Zap, title: 'Speed & usability', desc: 'Slow sites lose customers. We check load time and how easy it is to get around.' },
-  { icon: ShieldCheck, title: 'Trust signals', desc: 'Reviews, accreditations, real photos, contact details — does it look trustworthy?' },
-  { icon: MousePointerClick, title: 'Calls to action', desc: 'Is it obvious what to do next? Call, book, enquire, visit?' },
-  { icon: MapPin, title: 'Local visibility', desc: 'Can customers find you on Google? We check your local SEO foundations.' },
-  { icon: Mail, title: 'Easy to enquire', desc: 'Is the form working? Is the number easy to find? Do enquiries get through?' },
-];
-
-const WEBSITE_PROBLEMS = [
-  { issue: 'No clear call to action above the fold', impact: "Visitors land, scan, and leave because they don't know what to do next. Every second they have to think is a lost enquiry." },
-  { issue: 'Slow loading on mobile', impact: '53% of mobile visitors leave if a site takes longer than 3 seconds to load. Google also ranks slow sites lower.' },
-  { issue: 'No trust signals visible', impact: "If visitors can't see reviews, accreditations or real photos of your work, they assume you have none to show." },
-  { issue: 'Contact form asks too many questions', impact: 'Every extra field drops your completion rate. Long forms feel like an interrogation.' },
-  { issue: 'Unclear what you actually do', impact: "If a visitor can't understand your service in under 5 seconds, they leave. Jargon and vague headlines kill conversions." },
+  { icon: Eye, title: 'First impression', desc: 'What a visitor sees in the first 3 seconds — is it instantly clear what you do?' },
+  { icon: Compass, title: 'Clarity of offer', desc: 'Can someone understand your service, and why to choose you, without thinking?' },
+  { icon: Smartphone, title: 'Mobile experience', desc: 'Most local customers find you on a phone. Your site has to be effortless on one.' },
+  { icon: Zap, title: 'Speed & usability', desc: 'Slow sites lose customers before they read a word. I check load time and flow.' },
+  { icon: ShieldCheck, title: 'Trust signals', desc: 'Reviews, accreditations, real photos, contact details — does it feel safe to call?' },
+  { icon: MousePointerClick, title: 'Calls to action', desc: 'Is it obvious what to do next? Call, book, enquire — or scroll away confused?' },
+  { icon: MapPin, title: 'Local visibility', desc: 'Can customers actually find you on Google? I check your local SEO foundations.' },
+  { icon: Mail, title: 'Easy to enquire', desc: 'Does the form work? Is the number one tap away? Do enquiries get through?' },
 ];
 
 const PROCESS_STEPS = [
-  { step: '01', title: 'Answer a few quick questions', desc: 'Your website, your trade and what you want more of. Takes under a minute — no long forms.' },
-  { step: '02', title: 'A real person reviews it', desc: 'Not a bot. We go through your homepage, service and contact pages and your mobile experience by hand.' },
-  { step: '03', title: 'You get a branded audit', desc: 'Within 48 hours: a clear, branded audit showing what works, what doesn’t, and what to fix first.' },
-  { step: '04', title: 'No pushy sales call', desc: 'If it only needs small fixes, we’ll tell you — free. If a rebuild makes sense, we’ll show you what we’d build. No pressure.' },
+  { step: '01', title: 'Tell me where to look', desc: 'Your website, your trade and what you want more of. Four quick questions, under a minute.' },
+  { step: '02', title: 'I review it like a customer would', desc: 'Homepage, service pages, contact flow and the mobile experience — by hand, not by bot.' },
+  { step: '03', title: 'Your audit lands within 48 hours', desc: 'Branded and prioritised: what’s losing you enquiries, what’s already working, what to fix first.' },
+  { step: '04', title: 'You decide what happens next', desc: 'If small fixes will do it, I’ll say so — do them yourself, free. If a rebuild makes sense, I’ll show you exactly what I’d build. No chasing.' },
 ];
 
-const TESTIMONIALS = [
-  { name: 'Ric Wilson', role: 'Owner, Regenovate — Mergers & Acquisitions', url: 'https://www.regenovate.co.uk/', displayUrl: 'regenovate.co.uk', quote: "Coltura built our corporate site for Regenovate, a mergers and acquisitions firm handling multi-million-pound deals. They balanced credibility with clarity, and the site performs flawlessly. Adam doesn't just build websites. He understands what a business needs to look like before people trust it with serious money." },
-  { name: 'ERPExperts', role: 'ERP Implementation & Support', url: '', displayUrl: '', quote: "Coltura built our website and it has been a game changer for how we present ourselves online. The site is fast, professional, and actually brings in enquiries. Adam understood exactly what we needed and delivered it quickly." },
-  { name: 'David Hargraves', role: 'Build to Retire', url: '', displayUrl: '', quote: "Coltura built a clean, professional website for Build to Retire that perfectly captures what we do. The process was straightforward, the turnaround was fast, and the result is a site we are proud to send people to." },
-  { name: 'Solar in Sport', role: 'Cheaper electricity for grassroots sports clubs', url: 'https://solarinsport.uk/', displayUrl: 'solarinsport.uk', quote: "We built the website for Solar in Sport, a service that helps grassroots sports clubs switch to solar energy with zero upfront cost. The site explains a complex offer clearly, builds trust with clubs, and drives enquiries across the UK." },
+// Quiet proof strip — replaces the testimonial card grid. Every line is drawn
+// from the client's own approved quote; nothing invented, no made-up numbers.
+const BUILDS = [
+  { name: 'Regenovate', role: 'Mergers & acquisitions', line: '“Credibility with clarity” for multi-million-pound deals — “the site performs flawlessly.”', url: 'https://www.regenovate.co.uk/', displayUrl: 'regenovate.co.uk' },
+  { name: 'ERPExperts', role: 'ERP implementation & support', line: '“Fast, professional, and actually brings in enquiries.”', url: '', displayUrl: '' },
+  { name: 'Solar in Sport', role: 'Solar for grassroots clubs', line: 'A complex offer explained clearly — driving club enquiries across the UK.', url: 'https://solarinsport.uk/', displayUrl: 'solarinsport.uk' },
+  { name: 'Build to Retire', role: 'Property investment', line: '“A site we are proud to send people to” — clean, professional, fast turnaround.', url: '', displayUrl: '' },
 ];
 
 const FAQS = [
-  { question: 'Is the audit really free?', answer: 'Yes. No cost, no obligation, no hidden charges. We review your site and send you honest feedback. That is it.' },
-  { question: 'How does it work?', answer: 'Answer a few quick questions — your website, your trade and what you want more of. It takes under a minute. Prefer WhatsApp or a call? Those work too.' },
-  { question: 'How long does the audit take?', answer: 'We aim to send your audit within 48 hours of receiving your details.' },
-  { question: 'Will you try to sell me something?', answer: 'No. The audit is genuinely free and useful on its own. If your site needs a rebuild, we will explain why and what it would cost. If it only needs small fixes, we will tell you that too.' },
-  { question: 'Do I need a new website?', answer: 'Not necessarily. Many businesses just need small improvements. We will tell you honestly whether a rebuild makes sense or whether tweaks will do the job.' },
-  { question: 'How much does a new website cost?', answer: 'From £500 for a landing page up to £1,500 for a flagship site with full SEO — you own it outright. Ongoing care is optional, from £149/mo.' },
+  { question: 'Is the audit really free?', answer: 'Yes. No cost, no card details, no obligation. You get honest, practical feedback on your site — that’s the whole deal.' },
+  { question: 'Why free? What’s in it for you?', answer: 'Honestly? Some audits reveal problems worth fixing properly, and some of those businesses ask me to do the work. That’s how I win clients. If your site only needs small tweaks, you get those for free and we both move on.' },
+  { question: 'How long does it take?', answer: 'Under a minute to ask. Your audit is back within 48 hours.' },
+  { question: 'Will you try to sell me something?', answer: 'No sales call, no follow-up sequence. If a rebuild makes sense, I’ll say so once — with a price. If it doesn’t, I’ll tell you that too.' },
+  { question: 'Do I need a new website?', answer: 'Probably not. Most sites need a handful of fixes, not a rebuild — and the audit tells you exactly which yours needs.' },
+  { question: 'How much is a new website, if I do need one?', answer: 'From £500 for a landing page up to £1,500 for a flagship site with full SEO — and you own it outright. Ongoing care is optional, from £149/mo.' },
 ];
 
-const CHECKS = ['Free, no obligation', 'Reviewed by a human', 'Back in 48 hours'];
+const CHECKS = ['Free, no obligation', 'Reviewed by a real person', 'Back in 48 hours', 'No sales call'];
 
 const CTA_PRIMARY =
   'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg bg-brand px-8 text-sm font-bold tracking-[0.01em] text-on-brand shadow-[0_10px_24px_-8px_rgba(223,44,50,0.45)] transition-transform hover:scale-[1.02] active:scale-[0.98] sm:w-auto';
@@ -105,8 +104,9 @@ export default function GetStartedPage() {
       <AuditFunnel />
       <Nav />
 
-      {/* ── HERO — copy left, arch image right; CTA opens the funnel ────── */}
-      <section className="relative overflow-hidden bg-bg lg:h-[620px]">
+      {/* ── HERO — the leak, named. One promise, one price anchor, one CTA,
+             one testimonial, scarcity stated once. ─────────────────────── */}
+      <section className="relative overflow-hidden bg-bg lg:min-h-[680px]">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-72"
@@ -116,23 +116,28 @@ export default function GetStartedPage() {
           <ArchImage shapeClassName="hero-shape-desktop" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-6xl px-5 pb-12 pt-28 sm:px-8 sm:pt-32 lg:flex lg:h-full lg:items-center lg:py-0">
+        <div className="relative z-10 mx-auto max-w-6xl px-5 pb-14 pt-28 sm:px-8 sm:pt-32 lg:flex lg:min-h-[680px] lg:items-center lg:py-16">
           <div className="lg:max-w-[52%]">
             <div className="reveal-1">
-              <SectionLabel label="Free Growth Audit" tone="brand" />
+              <SectionLabel label="Free Website Growth Audit — Cheshire" tone="brand" />
             </div>
             <h1 className="reveal-2 mb-5 text-balance font-heading text-[clamp(2.25rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-ink">
-              Is your website costing you <span className="text-brand">customers?</span>
+              Your website is <span className="text-brand">leaking enquiries.</span> I&rsquo;ll show you exactly where.
             </h1>
-            <p className="reveal-3 mb-6 max-w-[34rem] text-lg leading-relaxed text-muted">
-              Answer a few quick questions and a real person reviews your site by hand — then sends
-              back a clear, honest audit within 48 hours, showing exactly what’s costing you
-              enquiries and how to fix it. <span className="font-medium text-ink">Normally £99. Yours free.</span>
+            <p className="reveal-3 mb-5 max-w-[34rem] text-lg leading-relaxed text-muted">
+              Send me your site and I&rsquo;ll go through it personally, the way a customer would.
+              Within 48 hours you get a clear, branded audit: what&rsquo;s costing you enquiries,
+              what&rsquo;s already working, and what to fix first.
+            </p>
+            <p className="reveal-3 mb-6 flex items-baseline gap-2.5">
+              <span className="text-lg text-muted line-through decoration-brand/60 decoration-2">£99</span>
+              <span className="font-heading text-2xl font-semibold text-ink">Free</span>
+              <span className="text-sm text-muted">this month</span>
             </p>
             <div className="reveal-4 mb-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <MagneticButton strength={0.18} className="block w-full sm:inline-block sm:w-auto">
                 <button type="button" data-audit-funnel className={CTA_PRIMARY}>
-                  Get My Free Audit
+                  {CTA_LABEL}
                 </button>
               </MagneticButton>
               <a
@@ -143,8 +148,7 @@ export default function GetStartedPage() {
                 Or call {PHONE_DISPLAY}
               </a>
             </div>
-            <div className="reveal-5 mb-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted">
-              <span className="flex items-center gap-1.5"><StarRow /> Trusted by Cheshire businesses</span>
+            <div className="reveal-5 mb-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted">
               {CHECKS.map((t) => (
                 <span key={t} className="flex items-center gap-1.5">
                   <svg className="h-3.5 w-3.5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -154,9 +158,23 @@ export default function GetStartedPage() {
                 </span>
               ))}
             </div>
-            <div className="reveal-6">
+            <div className="reveal-5 mb-7">
               <SpotsLeft />
             </div>
+            {/* Proof directly under the ask — one strong voice, not a wall of cards. */}
+            <figure className="reveal-6 max-w-[32rem] border-l-2 border-brand/50 pl-5">
+              <StarRow className="mb-2.5" />
+              <blockquote className="text-[15px] leading-relaxed text-ink/90">
+                &ldquo;Adam doesn&rsquo;t just build websites. He understands what a business needs to
+                look like before people trust it with serious money.&rdquo;
+              </blockquote>
+              <figcaption className="mt-2.5 text-xs text-muted">
+                <span className="font-semibold text-ink">Ric Wilson</span> — Owner,{' '}
+                <a href="https://www.regenovate.co.uk/" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
+                  Regenovate
+                </a>
+              </figcaption>
+            </figure>
           </div>
 
           {/* Mobile: arch image beneath the copy */}
@@ -166,35 +184,80 @@ export default function GetStartedPage() {
         </div>
       </section>
 
-      {/* ── STATS band (animated) ──────────────────────────────────────── */}
-      <section className="border-y border-line bg-bg-secondary">
-        <RevealGroup className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-16">
-          <p className="scroll-reveal mb-10 max-w-2xl font-heading text-[clamp(1.25rem,2.6vw,1.75rem)] font-medium leading-snug text-ink">
-            A slow, unclear website quietly bleeds enquiries. The numbers are brutal:
-          </p>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {STATS.map((s, i) => (
-              <div key={i} className="scroll-reveal" style={{ '--sr-delay': `${i * 110}ms` } as CSSProperties}>
-                <div className="font-heading text-[clamp(2.75rem,7vw,4rem)] font-semibold leading-none text-brand">
-                  <Counter to={s.to} suffix={s.suffix} />
-                </div>
-                <p className="mt-3 max-w-[15rem] text-sm leading-relaxed text-muted">{s.label}</p>
-              </div>
-            ))}
+      {/* ── THE MOMENT — a dark, full-screen statement PINS while the proof
+             panel physically rises up and covers it (same stacking mechanic
+             as the homepage Statement/Services pair). The stillness of the
+             pinned line, then the audit sliding over it, IS the pitch:
+             here's the threat — and here's the document that answers it. ── */}
+      <div className="relative">
+        <section className="dark sticky top-0 z-0 flex min-h-screen items-center justify-center overflow-hidden bg-bg px-5 py-24 sm:px-8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2"
+            style={{ background: 'radial-gradient(circle, rgb(var(--brand) / 0.08) 0%, transparent 60%)' }}
+          />
+          <div className="relative mx-auto max-w-3xl text-center">
+            <span className="mx-auto mb-7 block h-px w-10 bg-brand/55" />
+            <h2 className="text-balance font-heading text-[clamp(2rem,5.2vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.015em] text-ink">
+              Right now, someone nearby is searching for{' '}
+              <span className="text-brand">exactly what you do.</span>
+            </h2>
+            <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted">
+              They&rsquo;ll call whoever&rsquo;s website makes them feel safest — and they decide in
+              about five seconds. The audit shows you how to make sure that&rsquo;s you.
+            </p>
           </div>
-        </RevealGroup>
-      </section>
+        </section>
 
-      {/* ── WHAT WE CHECK ──────────────────────────────────────────────── */}
+        {/* ── REAL SAMPLE AUDIT — the covering panel. Proof this high on the
+               page is deliberate: show, don't sell. ─────────────────────── */}
+        <section className="relative z-10 flex min-h-screen flex-col justify-center rounded-t-[2rem] bg-bg-secondary shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.45)] sm:rounded-t-[2.75rem]">
+          <Reveal className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+              <div className="lg:pt-4">
+                <SectionLabel label="Proof, Not Promises" />
+                <h2 className="mb-4 font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
+                  This is exactly what lands in your inbox.
+                </h2>
+                <p className="mb-6 max-w-lg text-lg leading-relaxed text-muted">
+                  A real Coltura growth audit — branded, specific and prioritised. No jargon,
+                  no filler, nothing you can&rsquo;t act on the same day.
+                </p>
+                <button type="button" data-audit-funnel className={CTA_PRIMARY}>
+                  {CTA_LABEL}
+                </button>
+              </div>
+
+              <div>
+                <PdfPreview
+                  src="/coltura-sample-site-audit.pdf#toolbar=0&navpanes=0&view=FitH"
+                  title="Example Coltura Growth Audit"
+                />
+                <a
+                  href="/coltura-sample-site-audit.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex items-center gap-2.5 text-sm font-semibold text-brand transition-colors hover:underline"
+                >
+                  <FileText size={17} strokeWidth={2} />
+                  Open the full example audit
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+      </div>
+
+      {/* ── WHAT I CHECK — the 8-point audit ───────────────────────────── */}
       <section className="bg-bg">
         <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
           <div className="scroll-reveal mb-12 max-w-2xl">
-            <SectionLabel label="What You Get" tone="brand" />
+            <SectionLabel label="The 8-Point Audit" tone="brand" />
             <h2 className="mb-3 font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
-              A real, branded audit — not an automated report.
+              Eight checks decide whether your site wins the job.
             </h2>
             <p className="text-base leading-relaxed text-muted">
-              Every audit is done by hand and covers the eight things that decide whether your site wins enquiries or loses them.
+              Every audit covers the eight things customers judge before they pick up the phone.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -212,82 +275,64 @@ export default function GetStartedPage() {
         </RevealGroup>
       </section>
 
-      {/* ── REAL SAMPLE AUDIT (embedded PDF w/ loading state) ──────────── */}
-      <section className="bg-bg-secondary">
-        <Reveal className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
-            <div className="lg:pt-4">
-              <SectionLabel label="See It For Yourself" />
-              <h2 className="mb-4 font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
-                This is exactly what lands in your inbox.
-              </h2>
-              <p className="mb-6 max-w-lg text-lg leading-relaxed text-muted">
-                A real Coltura growth audit — clear, branded, and practical. No jargon, no filler.
-                Just what’s working, what isn’t, and what to fix first.
-              </p>
-              <button type="button" data-audit-funnel className={CTA_PRIMARY}>
-                Get mine free
-              </button>
-            </div>
-
-            <div>
-              <PdfPreview
-                src="/coltura-sample-site-audit.pdf#toolbar=0&navpanes=0&view=FitH"
-                title="Example Coltura Growth Audit"
-              />
-              <a
-                href="/coltura-sample-site-audit.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2.5 text-sm font-semibold text-brand transition-colors hover:underline"
-              >
-                <FileText size={17} strokeWidth={2} />
-                Open the full example audit
-              </a>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ── WHY SITES DON'T CONVERT — editorial index ──────────────────── */}
-      <section className="bg-bg">
-        <Reveal className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
-          <div className="mb-10">
-            <SectionLabel label="Why Sites Don’t Convert" />
-            <h2 className="mb-3 font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
-              Most sites lose customers for the <span className="text-brand">same few reasons.</span>
-            </h2>
-            <p className="max-w-lg text-base leading-relaxed text-muted">
-              These are the ones we find again and again. If any sound familiar, your free audit will catch them.
-            </p>
-          </div>
-          <div className="border-t border-line">
-            {WEBSITE_PROBLEMS.map((item, i) => (
-              <div key={i} className="flex items-baseline gap-5 border-b border-line py-6 md:gap-8">
-                <span className="w-8 shrink-0 font-heading text-sm tabular-nums text-brand/70">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h3 className="mb-1 font-heading text-lg font-medium text-ink">{item.issue}</h3>
-                  <p className="text-sm leading-relaxed text-muted">{item.impact}</p>
+      {/* ── HOW BIG IS THE LEAK — sourced stats + cost of doing nothing ── */}
+      <section className="border-y border-line bg-bg-secondary">
+        <RevealGroup className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-16">
+          <p className="scroll-reveal mb-10 max-w-2xl font-heading text-[clamp(1.25rem,2.6vw,1.75rem)] font-medium leading-snug text-ink">
+            A leaking site never tells you. You just get fewer calls.
+          </p>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {STATS.map((s, i) => (
+              <div key={i} className="scroll-reveal" style={{ '--sr-delay': `${i * 110}ms` } as CSSProperties}>
+                <div className="font-heading text-[clamp(2.75rem,7vw,4rem)] font-semibold leading-none text-brand">
+                  <Counter to={s.to} suffix={s.suffix} />
                 </div>
+                <p className="mt-3 max-w-[15rem] text-sm leading-relaxed text-muted">{s.label}</p>
+                <p className="mt-1.5 text-xs text-muted/60">Source: {s.source}</p>
               </div>
             ))}
           </div>
-          <p className="mt-10 text-sm text-muted">
-            Not sure which is hurting you?{' '}
-            <button type="button" data-audit-funnel className="font-medium text-brand hover:underline">
-              Get your free audit
-            </button>{' '}
-            and we’ll tell you — or{' '}
-            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="font-medium text-brand hover:underline">
-              message us on WhatsApp
-            </a>.
+          <p className="scroll-reveal mt-12 max-w-2xl text-base leading-relaxed text-ink">
+            For most local businesses, <span className="font-semibold">one missed job is worth more than fixing the entire site.</span>{' '}
+            Finding the leak costs you nothing.{' '}
+            <button type="button" data-audit-funnel className="font-semibold text-brand hover:underline">
+              {CTA_LABEL} →
+            </button>
           </p>
-        </Reveal>
+        </RevealGroup>
       </section>
 
-      {/* ── PROCESS — what happens after you submit ────────────────────── */}
+      {/* ── RECENT BUILDS — quiet proof strip, drawn from client quotes ── */}
+      <section className="bg-bg">
+        <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <div className="scroll-reveal mb-12 max-w-2xl">
+            <SectionLabel label="Recent Builds" />
+            <h2 className="font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
+              Sites doing this job for real businesses right now.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 border-t border-line lg:grid-cols-4">
+            {BUILDS.map((b, i) => (
+              <div
+                key={b.name}
+                className="scroll-reveal border-b border-line py-8 lg:border-b-0 lg:border-l lg:py-2 lg:pl-6 lg:pr-4 lg:[&:first-child]:border-l-0 lg:[&:first-child]:pl-0"
+                style={{ '--sr-delay': `${i * 90}ms` } as CSSProperties}
+              >
+                <h3 className="font-heading text-lg font-medium text-ink">{b.name}</h3>
+                <p className="mb-3 mt-0.5 text-xs uppercase tracking-[0.08em] text-muted">{b.role}</p>
+                <p className="max-w-xs text-sm leading-relaxed text-muted">{b.line}</p>
+                {b.url && (
+                  <a href={b.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-xs font-medium text-brand hover:underline">
+                    {b.displayUrl} →
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </RevealGroup>
+      </section>
+
+      {/* ── PROCESS — what happens after you ask ───────────────────────── */}
       <section className="bg-bg-secondary">
         <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
           <div className="scroll-reveal grid grid-cols-1 gap-6 lg:grid-cols-[0.85fr_2fr] lg:gap-16">
@@ -315,68 +360,6 @@ export default function GetStartedPage() {
         </RevealGroup>
       </section>
 
-      {/* ── TESTIMONIALS ───────────────────────────────────────────────── */}
-      <section className="bg-bg">
-        <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-          <div className="scroll-reveal mb-12 max-w-2xl">
-            <SectionLabel label="Trusted by Cheshire Businesses" tone="brand" />
-            <h2 className="font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
-              Real businesses. Real websites. Real results.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {TESTIMONIALS.map((t, i) => (
-              <div
-                key={i}
-                className="scroll-reveal flex flex-col rounded-2xl border border-line bg-card p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_14px_34px_-18px_rgba(0,0,0,0.14)] sm:p-8"
-                style={{ '--sr-delay': `${(i % 2) * 90}ms` } as CSSProperties}
-              >
-                <StarRow className="mb-4" />
-                <blockquote className="mb-6 flex-1 text-[15px] leading-relaxed text-ink/90">&ldquo;{t.quote}&rdquo;</blockquote>
-                <div className="flex items-center gap-3 border-t border-line pt-5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand/20 bg-brand/10 font-heading text-sm font-bold text-brand">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-ink">{t.name}</p>
-                    <p className="mt-0.5 text-xs leading-tight text-muted">{t.role}</p>
-                    {t.url && (
-                      <a href={t.url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-xs text-brand transition-colors hover:underline">
-                        {t.displayUrl}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </RevealGroup>
-      </section>
-
-      {/* ── BUG PROMISE — permanently dark so the animation reads right ── */}
-      <section className="dark relative overflow-hidden bg-bg-secondary">
-        <Reveal className="mx-auto grid max-w-5xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <SectionLabel label="Bug Free Care" />
-            <h2 className="mb-6 font-heading text-[clamp(2rem,5vw,3.25rem)] font-medium leading-[1.05] tracking-tight text-ink">
-              We eat website bugs <span className="text-brand">for breakfast.</span>
-            </h2>
-            <p className="mb-6 max-w-md text-lg leading-relaxed text-muted">
-              Geckos eat bugs. We do too — broken buttons, dead forms, slow pages, all handled.
-            </p>
-            <p className="max-w-md font-heading text-lg font-medium leading-snug text-ink">
-              Find a bug in the first 30 days? We fix it free.
-            </p>
-          </div>
-          <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl">
-            <video autoPlay muted loop playsInline poster="/videos/bug-eating-poster.png" className="h-auto w-full">
-              <source src="/videos/bug-eating-transparent.webm" type="video/webm" />
-              <source src="/videos/bug-eating.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </Reveal>
-      </section>
-
       {/* ── FAQ ────────────────────────────────────────────────────────── */}
       <section className="bg-bg">
         <Reveal className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
@@ -394,18 +377,19 @@ export default function GetStartedPage() {
         </Reveal>
       </section>
 
-      {/* ── FINAL CTA ──────────────────────────────────────────────────── */}
+      {/* ── FINAL CTA — the no-brainer, spelled out ────────────────────── */}
       <section className="bg-bg-secondary">
         <Reveal className="mx-auto max-w-3xl px-5 py-20 text-center sm:py-28">
           <h2 className="text-balance font-heading text-[clamp(1.8rem,3.6vw,2.6rem)] font-medium leading-tight text-ink">
-            Find out what your website is missing.
+            Worst case? You get a <span className="text-brand">£99 audit for free.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted">
-            Answer a few quick questions and get honest, practical feedback within 48 hours — no pressure, no jargon, no obligation.
+            Best case, you find out exactly why the phone isn&rsquo;t ringing — and fix it this
+            month. Either way, you&rsquo;ll know where you stand within 48 hours.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button type="button" data-audit-funnel className={CTA_PRIMARY.replace('px-8', 'px-10')}>
-              Get my free audit
+              {CTA_LABEL}
             </button>
             <a
               href="tel:+447958394808"
@@ -415,9 +399,12 @@ export default function GetStartedPage() {
               Or call {PHONE_DISPLAY}
             </a>
           </div>
-          <div className="mt-8">
-            <SpotsLeft className="text-center" />
-          </div>
+          <p className="mt-6 text-sm text-muted">
+            Prefer WhatsApp?{' '}
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="font-medium text-brand hover:underline">
+              Send your website there instead →
+            </a>
+          </p>
         </Reveal>
       </section>
 
@@ -431,7 +418,7 @@ export default function GetStartedPage() {
             data-audit-funnel
             className="flex flex-[2] items-center justify-center gap-2 rounded-lg bg-brand py-3 text-sm font-bold text-on-brand transition-transform active:scale-[0.98]"
           >
-            Get my free audit
+            {CTA_LABEL}
           </button>
           <a
             href="tel:+447958394808"

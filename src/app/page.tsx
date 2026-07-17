@@ -11,6 +11,7 @@ import Process from '@/components/Process';
 import PricingTeaser from '@/components/PricingTeaser';
 import AuditExample from '@/components/AuditExample';
 import Ownership from '@/components/Ownership';
+import BugPromise from '@/components/BugPromise';
 import BrandNote from '@/components/BrandNote';
 import Footer from '@/components/Footer';
 
@@ -46,6 +47,7 @@ export default function Home() {
       <PricingTeaser />
       <AuditExample />
       <Ownership />
+      <BugPromise />
       <BrandNote />
       <Footer />
 
