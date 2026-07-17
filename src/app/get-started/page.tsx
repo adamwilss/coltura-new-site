@@ -14,6 +14,7 @@ import AuditBook from '@/components/AuditBook';
 import UrlScanner from '@/components/UrlScanner';
 import BeforeAfter from '@/components/BeforeAfter';
 import LeakGrid from '@/components/LeakGrid';
+import PhoneRings from '@/components/PhoneRings';
 import LeadAnalytics from '@/components/LeadAnalytics';
 import SpotsLeft from '@/components/SpotsLeft';
 import FaqItem from './FaqItem';
@@ -26,7 +27,7 @@ export const metadata = buildMetadata({
   title: 'Free Website Audit — Find the Leak Costing You Enquiries | Coltura',
   description:
     'Your website is leaking enquiries. Send it over and I’ll review it personally — a clear, branded audit back within 48 hours showing exactly what to fix first. Normally £99, free this month.',
-  keywords: ['free website audit', 'website review', 'growth audit', 'local business website', 'Cheshire web design'],
+  keywords: ['free website audit', 'website review', 'growth audit', 'local business website', 'web design for local businesses'],
   canonical: 'https://coltura.uk/get-started',
   ogTitle: 'Your website is leaking enquiries. Find out where — free.',
   ogDescription: 'A real person reviews your site by hand and sends a branded, prioritised audit within 48 hours. Normally £99. Yours free.',
@@ -100,7 +101,8 @@ function StarRow({ className = '' }: { className?: string }) {
 }
 
 export default function GetStartedPage() {
-  const jsonLd = [generateFAQPageSchema(FAQS), generateLocalBusinessSchema()];
+  // Ads for this page run UK-wide, so the schema's service area does too.
+  const jsonLd = [generateFAQPageSchema(FAQS), generateLocalBusinessSchema('United Kingdom')];
 
   return (
     <main className="relative">
@@ -124,10 +126,23 @@ export default function GetStartedPage() {
         <div className="relative z-10 mx-auto max-w-6xl px-5 pb-14 pt-28 sm:px-8 sm:pt-32 lg:flex lg:min-h-[680px] lg:items-center lg:py-16">
           <div className="lg:max-w-[52%]">
             <div className="reveal-1">
-              <SectionLabel label="Free Website Growth Audit — Cheshire" tone="brand" />
+              <SectionLabel label="Free Website Growth Audit" tone="brand" />
             </div>
             <h1 className="reveal-2 mb-4 text-balance font-heading text-[clamp(2rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-ink sm:mb-5">
-              Your website is <span className="text-brand">leaking enquiries.</span> I&rsquo;ll show you exactly where.
+              Your website is{' '}
+              <span className="relative inline-block text-brand">
+                leaking enquiries.
+                <svg
+                  className="marker-stroke absolute -bottom-[0.14em] left-0 h-[0.18em] w-full"
+                  viewBox="0 0 220 12"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                >
+                  <path d="M4 9 C 42 3, 92 3, 132 6 S 202 9, 216 4" stroke="currentColor" strokeWidth="5" strokeLinecap="round" pathLength="1" />
+                </svg>
+              </span>{' '}
+              I&rsquo;ll show you exactly where.
             </h1>
             {/* Most ad clicks are mobile: keep the first screen tight there —
                 short line + scanner in view; the full pitch shows from sm up. */}
@@ -141,7 +156,25 @@ export default function GetStartedPage() {
             </p>
             <p className="reveal-3 mb-6 flex items-baseline gap-2.5">
               <span className="text-lg text-muted line-through decoration-brand/60 decoration-2">£99</span>
-              <span className="font-heading text-2xl font-semibold text-ink">Free</span>
+              <span className="relative inline-block px-1.5 font-heading text-2xl font-semibold text-ink">
+                Free
+                <svg
+                  className="marker-circle pointer-events-none absolute -inset-x-[22%] -inset-y-[38%]"
+                  viewBox="0 0 120 64"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                  style={{ '--draw-delay': '1600ms' } as CSSProperties}
+                >
+                  <path
+                    d="M18 32 C 14 12, 96 4, 108 24 C 116 44, 66 62, 34 56 C 10 51, 8 38, 20 26"
+                    stroke="rgb(var(--brand))"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    pathLength="1"
+                  />
+                </svg>
+              </span>
               <span className="text-sm text-muted">this month</span>
             </p>
             {/* The hook: type the URL here, watch the checks queue against
@@ -407,6 +440,9 @@ export default function GetStartedPage() {
           </div>
         </RevealGroup>
       </section>
+
+      {/* ── THE POINT OF ALL THIS — the ringing phone, before the FAQ ──── */}
+      <PhoneRings funnelCta />
 
       {/* ── FAQ ────────────────────────────────────────────────────────── */}
       <section className="bg-bg">

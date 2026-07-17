@@ -20,6 +20,15 @@ const SCAN_LINES = [
 
 const LINE_MS = 260;
 
+// The placeholder types real-looking local-business domains, one after
+// another — a quiet demonstration of who this is for and what to do here.
+const SAMPLE_DOMAINS = [
+  'yourbusiness.co.uk',
+  'smithsplumbing.co.uk',
+  'thecornersalon.uk',
+  'hartleyroofing.com',
+];
+
 /**
  * The hero's hook: type your website, watch the audit checklist queue up
  * against your actual domain, then land in the funnel with your site already
@@ -32,7 +41,48 @@ export default function UrlScanner() {
   const [scanning, setScanning] = useState(false);
   const [lineCount, setLineCount] = useState(0);
   const [domain, setDomain] = useState('');
+  const [placeholder, setPlaceholder] = useState(SAMPLE_DOMAINS[0]);
+  const [focused, setFocused] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  // Typewriter placeholder: type a domain, hold, delete, next. Pauses while
+  // the field is focused or filled; static under reduced motion.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let d = 0; // domain index
+    let c = SAMPLE_DOMAINS[0].length; // char cursor (start fully typed)
+    let deleting = false;
+    let t: ReturnType<typeof setTimeout>;
+    let active = true;
+
+    const tick = () => {
+      if (!active) return;
+      const word = SAMPLE_DOMAINS[d];
+      let delay = deleting ? 28 : 62;
+      if (deleting) {
+        c -= 1;
+        if (c === 0) {
+          deleting = false;
+          d = (d + 1) % SAMPLE_DOMAINS.length;
+          delay = 350;
+        }
+      } else {
+        c += 1;
+        if (c >= word.length) {
+          c = word.length;
+          deleting = true;
+          delay = 1700;
+        }
+      }
+      setPlaceholder(SAMPLE_DOMAINS[d].slice(0, Math.max(1, c)));
+      t = setTimeout(tick, delay);
+    };
+    t = setTimeout(tick, 1700);
+    return () => {
+      active = false;
+      clearTimeout(t);
+    };
+  }, []);
 
   const normalise = (v: string) => (/^https?:\/\//i.test(v.trim()) ? v.trim() : `https://${v.trim()}`);
 
@@ -92,9 +142,11 @@ export default function UrlScanner() {
             if (error) setError('');
           }}
           onKeyDown={(e) => e.key === 'Enter' && start()}
-          placeholder="yourbusiness.co.uk"
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          placeholder={focused || value ? 'yourbusiness.co.uk' : placeholder}
           aria-label="Your website address"
-          className="min-h-14 flex-1 rounded-lg border border-line bg-card px-5 font-mono text-base text-ink placeholder:text-muted/50 focus:border-brand/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
+          className="input-beckon min-h-14 flex-1 rounded-lg border border-line bg-card px-5 font-mono text-base text-ink placeholder:text-muted/50 focus:border-brand/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
         />
         <button
           type="button"

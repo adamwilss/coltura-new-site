@@ -237,6 +237,33 @@ html.js .reveal-group.is-visible .scroll-reveal {
 }
 .reno-link { color: #0000ee; text-decoration: underline; }
 
+/*
+ * Hand-drawn marker strokes for the get-started hero: an underline swiped
+ * beneath "leaking enquiries" and a rough circle around "Free". Both draw
+ * themselves in after the headline lands (stroke-dash animation), like
+ * someone marking up the page with a red pen.
+ */
+.marker-stroke path,
+.marker-circle path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: marker-draw 700ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: var(--draw-delay, 1000ms);
+}
+@keyframes marker-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* A few gentle pulses on the hero URL input — the eye lands where the
+   action is, then the pulsing stops rather than nagging. */
+.input-beckon {
+  animation: input-beckon 2.2s ease-in-out 1.2s 3;
+}
+@keyframes input-beckon {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--brand) / 0); }
+  50% { box-shadow: 0 0 0 5px rgb(var(--brand) / 0.14); }
+}
+
 /* Phone-ring wiggle for the PhoneRings closer. */
 @keyframes ring-wiggle {
   0%, 62%, 100% { transform: rotate(0); }
@@ -254,7 +281,13 @@ html.js .reveal-group.is-visible .scroll-reveal {
 @media (prefers-reduced-motion: reduce) {
   .reno-marquee > span,
   .reno-blink,
-  .ring-wiggle {
+  .ring-wiggle,
+  .input-beckon {
     animation: none;
+  }
+  .marker-stroke path,
+  .marker-circle path {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 }

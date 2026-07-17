@@ -19,7 +19,7 @@ export default function BeforeAfter() {
     const el = wrapRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    setPct(Math.max(4, Math.min(96, ((clientX - r.left) / r.width) * 100)));
+    setPct(Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100)));
   }, []);
 
   useEffect(() => {
@@ -53,8 +53,8 @@ export default function BeforeAfter() {
       aria-valuenow={Math.round(pct)}
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'ArrowLeft') setPct((p) => Math.max(4, p - 5));
-        if (e.key === 'ArrowRight') setPct((p) => Math.min(96, p + 5));
+        if (e.key === 'ArrowLeft') setPct((p) => Math.max(0, p - 5));
+        if (e.key === 'ArrowRight') setPct((p) => Math.min(100, p + 5));
       }}
     >
       {/* ── AFTER (base layer): the Coltura version ─────────────────────── */}
@@ -135,11 +135,18 @@ export default function BeforeAfter() {
         </span>
       </div>
 
-      {/* corner labels */}
-      <span className="pointer-events-none absolute left-3 top-[54px] z-10 rounded bg-black/60 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+      {/* corner labels — fade out when their side is swiped away, so a full
+          sweep to either edge shows one clean, uninterrupted site */}
+      <span
+        className="pointer-events-none absolute left-3 top-[54px] z-10 rounded bg-black/60 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white transition-opacity duration-200"
+        style={{ opacity: pct < 9 ? 0 : 1 }}
+      >
         Before
       </span>
-      <span className="pointer-events-none absolute right-3 top-[54px] z-10 rounded bg-brand px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+      <span
+        className="pointer-events-none absolute right-3 top-[54px] z-10 rounded bg-brand px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white transition-opacity duration-200"
+        style={{ opacity: pct > 91 ? 0 : 1 }}
+      >
         After
       </span>
     </div>

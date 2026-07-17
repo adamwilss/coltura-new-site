@@ -21,8 +21,11 @@ const TOASTS = [
  * the good kind of noise on the right — real phone proportions (9:19.5),
  * dynamic-island notch, wallpaper glow, home indicator. Toasts stagger in on
  * view; the phone icon ring-wiggles (CSS, off under reduced motion).
+ *
+ * `funnelCta` swaps the WhatsApp CTA for the audit-funnel trigger — used on
+ * /get-started, where every CTA opens the funnel with one consistent verb.
  */
-export default function PhoneRings() {
+export default function PhoneRings({ funnelCta = false }: { funnelCta?: boolean }) {
   const reduced = useReducedMotion();
 
   return (
@@ -45,7 +48,17 @@ export default function PhoneRings() {
             needs what you do — tonight, in your town — choose your number over the next tab.
           </p>
           <MagneticButton strength={0.15} className="inline-block">
-            <WhatsAppButton label="Get My Free Audit" />
+            {funnelCta ? (
+              <button
+                type="button"
+                data-audit-funnel
+                className="inline-flex min-h-14 items-center justify-center rounded-lg bg-brand px-8 text-sm font-bold tracking-[0.01em] text-on-brand shadow-[0_10px_24px_-8px_rgba(223,44,50,0.45)] transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Review my website free
+              </button>
+            ) : (
+              <WhatsAppButton label="Get My Free Audit" />
+            )}
           </MagneticButton>
         </div>
 
