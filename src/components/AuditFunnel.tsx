@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import AuditFunnelModal from './AuditFunnelModal';
 
 /**
- * Mounts the multi-step audit funnel modal and opens it whenever any element
- * carrying `data-audit-funnel` is clicked. Event delegation means the trigger
- * buttons can live anywhere in the (server-rendered) page — they don't need to
- * be client components themselves.
+ * Mounts the multi-step audit funnel modal. Opens two ways:
+ *  - any click on an element carrying `data-audit-funnel` (event delegation,
+ *    so server-rendered trigger buttons work anywhere on the page);
+ *  - a `coltura:open-funnel` CustomEvent — the UrlScanner dispatches this
+ *    with the visitor's website so the modal opens pre-filled at step 2.
  */
 export default function AuditFunnel() {
-  const [open, setOpen] = useState(false);
+  const [state, setState] = useState<{ open: boolean; website: string }>({ open: false, website: '' });
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -18,11 +19,21 @@ export default function AuditFunnel() {
       const trigger = target?.closest?.('[data-audit-funnel]');
       if (!trigger) return;
       e.preventDefault();
-      setOpen(true);
+      setState({ open: true, website: '' });
+    };
+    const onOpen = (e: Event) => {
+      const website = (e as CustomEvent<{ website?: string }>).detail?.website ?? '';
+      setState({ open: true, website });
     };
     document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+    window.addEventListener('coltura:open-funnel', onOpen);
+    return () => {
+      document.removeEventListener('click', onClick);
+      window.removeEventListener('coltura:open-funnel', onOpen);
+    };
   }, []);
 
-  return open ? <AuditFunnelModal onClose={() => setOpen(false)} /> : null;
+  return state.open ? (
+    <AuditFunnelModal initialWebsite={state.website} onClose={() => setState({ open: false, website: '' })} />
+  ) : null;
 }

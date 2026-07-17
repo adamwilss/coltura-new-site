@@ -9,9 +9,11 @@ import Reveal from '@/components/Reveal';
 import RevealGroup from '@/components/RevealGroup';
 import Counter from '@/components/Counter';
 import ArchImage from '@/components/ArchImage';
-import MagneticButton from '@/components/MagneticButton';
 import AuditFunnel from '@/components/AuditFunnel';
 import AuditBook from '@/components/AuditBook';
+import UrlScanner from '@/components/UrlScanner';
+import BeforeAfter from '@/components/BeforeAfter';
+import LeakGrid from '@/components/LeakGrid';
 import LeadAnalytics from '@/components/LeadAnalytics';
 import SpotsLeft from '@/components/SpotsLeft';
 import FaqItem from './FaqItem';
@@ -36,8 +38,8 @@ export const metadata = buildMetadata({
 const CTA_LABEL = 'Review my website free';
 
 // Sourced stats only — an unsourced number costs more trust than it buys.
+// (The 53% Google stat lives in LeakGrid as a hundred dots instead.)
 const STATS = [
-  { to: 53, suffix: '%', label: 'of mobile visitors abandon a site that takes over 3 seconds to load.', source: 'Google' },
   { to: 7, suffix: '%', label: 'of conversions lost for every extra second a page takes to load.', source: 'Aberdeen Group' },
   { to: 76, suffix: '%', label: 'of people who search locally on their phone visit a business within 24 hours.', source: 'Google' },
 ];
@@ -124,10 +126,15 @@ export default function GetStartedPage() {
             <div className="reveal-1">
               <SectionLabel label="Free Website Growth Audit — Cheshire" tone="brand" />
             </div>
-            <h1 className="reveal-2 mb-5 text-balance font-heading text-[clamp(2.25rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-ink">
+            <h1 className="reveal-2 mb-4 text-balance font-heading text-[clamp(2rem,5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-ink sm:mb-5">
               Your website is <span className="text-brand">leaking enquiries.</span> I&rsquo;ll show you exactly where.
             </h1>
-            <p className="reveal-3 mb-5 max-w-[34rem] text-lg leading-relaxed text-muted">
+            {/* Most ad clicks are mobile: keep the first screen tight there —
+                short line + scanner in view; the full pitch shows from sm up. */}
+            <p className="reveal-3 mb-4 max-w-[34rem] text-base leading-relaxed text-muted sm:hidden">
+              Type your website below. A real person reviews it — your audit is back within 48 hours.
+            </p>
+            <p className="reveal-3 mb-5 hidden max-w-[34rem] text-lg leading-relaxed text-muted sm:block">
               Send me your site and I&rsquo;ll go through it personally, the way a customer would.
               Within 48 hours you get a clear, branded audit: what&rsquo;s costing you enquiries,
               what&rsquo;s already working, and what to fix first.
@@ -137,20 +144,18 @@ export default function GetStartedPage() {
               <span className="font-heading text-2xl font-semibold text-ink">Free</span>
               <span className="text-sm text-muted">this month</span>
             </p>
-            <div className="reveal-4 mb-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-              <MagneticButton strength={0.18} className="block w-full sm:inline-block sm:w-auto">
-                <button type="button" data-audit-funnel className={CTA_PRIMARY}>
-                  {CTA_LABEL}
-                </button>
-              </MagneticButton>
-              <a
-                href="tel:+447958394808"
-                className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-lg border border-line px-8 text-sm font-semibold text-ink transition-colors hover:border-ink/30 sm:w-auto"
-              >
-                <Phone size={15} strokeWidth={1.75} />
-                Or call {PHONE_DISPLAY}
-              </a>
+            {/* The hook: type the URL here, watch the checks queue against
+                your own domain, land in the funnel already at step 2. */}
+            <div className="reveal-4 mb-3">
+              <UrlScanner />
             </div>
+            <a
+              href="tel:+447958394808"
+              className="reveal-4 mb-5 inline-flex items-center gap-2 text-sm text-muted underline decoration-line underline-offset-4 transition-colors hover:text-ink"
+            >
+              <Phone size={13} strokeWidth={1.75} />
+              Rather talk it through? Call {PHONE_DISPLAY}
+            </a>
             <div className="reveal-5 mb-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted">
               {CHECKS.map((t) => (
                 <span key={t} className="flex items-center gap-1.5">
@@ -202,11 +207,11 @@ export default function GetStartedPage() {
              pinned line, then the audit sliding over it, IS the pitch:
              here's the threat — and here's the document that answers it. ── */}
       <div className="relative">
-        <section className="dark sticky top-0 z-0 flex min-h-screen items-center justify-center overflow-hidden bg-bg px-5 py-24 sm:px-8">
+        <section className="sticky top-0 z-0 flex min-h-screen items-center justify-center overflow-hidden bg-bg px-5 py-24 sm:px-8">
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2"
-            style={{ background: 'radial-gradient(circle, rgb(var(--brand) / 0.08) 0%, transparent 60%)' }}
+            style={{ background: 'radial-gradient(circle, rgb(var(--brand) / 0.06) 0%, transparent 60%)' }}
           />
           <div className="relative mx-auto max-w-3xl text-center">
             <span className="mx-auto mb-7 block h-px w-10 bg-brand/55" />
@@ -221,33 +226,33 @@ export default function GetStartedPage() {
           </div>
         </section>
 
-        {/* ── REAL SAMPLE AUDIT — the covering panel. Proof this high on the
-               page is deliberate: show, don't sell. ─────────────────────── */}
-        <section className="relative z-10 flex min-h-screen flex-col justify-center rounded-t-[2rem] bg-bg-secondary shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.45)] sm:rounded-t-[2.75rem]">
+        {/* ── THE AUDIT, AS A BOOK — the dark panel that rises over the
+               statement. Proof this high on the page is deliberate: show,
+               don't sell. The pages are dark, so the stage is too. ──────── */}
+        <section className="dark relative z-10 flex min-h-screen flex-col justify-center rounded-t-[2rem] bg-bg-secondary shadow-[0_-30px_70px_-35px_rgba(0,0,0,0.55)] sm:rounded-t-[2.75rem]">
           <Reveal className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
-              <div className="lg:pt-4">
-                <SectionLabel label="Proof, Not Promises" />
-                <h2 className="mb-4 font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
-                  This is exactly what lands in your inbox.
-                </h2>
-                <p className="mb-6 max-w-lg text-lg leading-relaxed text-muted">
-                  A real Coltura growth audit — branded, specific and prioritised. No jargon,
-                  no filler, nothing you can&rsquo;t act on the same day.
-                </p>
-                <button type="button" data-audit-funnel className={CTA_PRIMARY}>
-                  {CTA_LABEL}
-                </button>
-              </div>
+            <div className="mx-auto mb-12 max-w-2xl text-center">
+              <SectionLabel label="Proof, Not Promises" tone="brand" />
+              <h2 className="mb-4 font-heading text-[clamp(1.7rem,3.6vw,2.6rem)] font-medium leading-tight text-ink">
+                This is exactly what lands in your inbox.
+              </h2>
+              <p className="text-lg leading-relaxed text-muted">
+                A real Coltura growth audit — have a read. Branded, specific, prioritised.
+                Nothing you can&rsquo;t act on the same day.
+              </p>
+            </div>
 
-              <div>
-                <AuditBook
-                  basePath="/images/audit-pages"
-                  pageCount={8}
-                  label="Coltura Growth Audit"
-                  pdfHref="/coltura-sample-site-audit.pdf"
-                />
-              </div>
+            <AuditBook
+              basePath="/images/audit-pages"
+              pageCount={8}
+              label="Coltura Growth Audit"
+              pdfHref="/coltura-sample-site-audit.pdf"
+            />
+
+            <div className="mt-12 text-center">
+              <button type="button" data-audit-funnel className={CTA_PRIMARY}>
+                {CTA_LABEL}
+              </button>
             </div>
           </Reveal>
         </section>
@@ -280,30 +285,56 @@ export default function GetStartedPage() {
         </RevealGroup>
       </section>
 
-      {/* ── HOW BIG IS THE LEAK — sourced stats + cost of doing nothing ── */}
+      {/* ── DRAG THE DIFFERENCE — the renovation, in your hands ─────────── */}
       <section className="border-y border-line bg-bg-secondary">
-        <RevealGroup className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-16">
-          <p className="scroll-reveal mb-10 max-w-2xl font-heading text-[clamp(1.25rem,2.6vw,1.75rem)] font-medium leading-snug text-ink">
+        <RevealGroup className="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-24">
+          <div className="scroll-reveal mb-10 max-w-2xl">
+            <SectionLabel label="Drag The Difference" tone="brand" />
+            <h2 className="mb-3 font-heading text-[clamp(1.6rem,3.4vw,2.5rem)] font-medium leading-tight text-ink">
+              Same plumber. Same prices. <span className="text-brand">Different website.</span>
+            </h2>
+            <p className="max-w-lg text-base leading-relaxed text-muted">
+              Drag the handle and ask yourself one question: which version gets the call?
+              (Made-up business — but we&rsquo;ve renovated plenty that started like this.)
+            </p>
+          </div>
+          <div className="scroll-reveal">
+            <BeforeAfter />
+          </div>
+        </RevealGroup>
+      </section>
+
+      {/* ── HOW BIG IS THE LEAK — the 53% as people + sourced stats ─────── */}
+      <section className="bg-bg">
+        <RevealGroup className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+          <p className="scroll-reveal mb-12 max-w-2xl font-heading text-[clamp(1.25rem,2.6vw,1.75rem)] font-medium leading-snug text-ink">
             A leaking site never tells you. You just get fewer calls.
           </p>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {STATS.map((s, i) => (
-              <div key={i} className="scroll-reveal" style={{ '--sr-delay': `${i * 110}ms` } as CSSProperties}>
-                <div className="font-heading text-[clamp(2.75rem,7vw,4rem)] font-semibold leading-none text-brand">
-                  <Counter to={s.to} suffix={s.suffix} />
-                </div>
-                <p className="mt-3 max-w-[15rem] text-sm leading-relaxed text-muted">{s.label}</p>
-                <p className="mt-1.5 text-xs text-muted/60">Source: {s.source}</p>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[auto_1fr] lg:gap-20">
+            <div className="scroll-reveal">
+              <LeakGrid />
+            </div>
+            <div>
+              <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+                {STATS.map((s, i) => (
+                  <div key={i} className="scroll-reveal" style={{ '--sr-delay': `${i * 110}ms` } as CSSProperties}>
+                    <div className="font-heading text-[clamp(2.75rem,7vw,4rem)] font-semibold leading-none text-brand">
+                      <Counter to={s.to} suffix={s.suffix} />
+                    </div>
+                    <p className="mt-3 max-w-[15rem] text-sm leading-relaxed text-muted">{s.label}</p>
+                    <p className="mt-1.5 text-xs text-muted/60">Source: {s.source}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+              <p className="scroll-reveal mt-12 max-w-2xl text-base leading-relaxed text-ink">
+                For most local businesses, <span className="font-semibold">one missed job is worth more than fixing the entire site.</span>{' '}
+                Finding the leak costs you nothing.{' '}
+                <button type="button" data-audit-funnel className="font-semibold text-brand hover:underline">
+                  {CTA_LABEL} →
+                </button>
+              </p>
+            </div>
           </div>
-          <p className="scroll-reveal mt-12 max-w-2xl text-base leading-relaxed text-ink">
-            For most local businesses, <span className="font-semibold">one missed job is worth more than fixing the entire site.</span>{' '}
-            Finding the leak costs you nothing.{' '}
-            <button type="button" data-audit-funnel className="font-semibold text-brand hover:underline">
-              {CTA_LABEL} →
-            </button>
-          </p>
         </RevealGroup>
       </section>
 

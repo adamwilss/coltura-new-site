@@ -16,7 +16,7 @@ export default function MicroMoments() {
   useEffect(() => {
     const original = document.title;
     const onVisibility = () => {
-      document.title = document.hidden ? '📞 Your customers switch tabs too.' : original;
+      document.title = document.hidden ? '👀 We saw that.' : original;
     };
     document.addEventListener('visibilitychange', onVisibility);
 

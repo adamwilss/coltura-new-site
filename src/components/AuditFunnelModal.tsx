@@ -53,12 +53,20 @@ const BTN_BRAND =
 const BTN_OUTLINE =
   'w-full min-h-14 inline-flex items-center justify-center rounded-lg border border-line px-6 text-base font-semibold text-ink transition-colors hover:border-ink/30';
 
-export default function AuditFunnelModal({ onClose }: { onClose: () => void }) {
-  const [step, setStep] = useState(1);
+export default function AuditFunnelModal({
+  onClose,
+  initialWebsite = '',
+}: {
+  onClose: () => void;
+  initialWebsite?: string;
+}) {
+  // A website handed in from the UrlScanner skips step 1 — the visitor
+  // already typed it once; asking again would burn the momentum.
+  const [step, setStep] = useState(initialWebsite ? 2 : 1);
   const [direction, setDirection] = useState(1);
   const [showOtherBiz, setShowOtherBiz] = useState(false);
   const [showOtherProblem, setShowOtherProblem] = useState(false);
-  const [data, setData] = useState<FormState>(INITIAL_STATE);
+  const [data, setData] = useState<FormState>({ ...INITIAL_STATE, website: initialWebsite });
   const [websiteError, setWebsiteError] = useState('');
   const [contactError, setContactError] = useState('');
   const [sending, setSending] = useState(false);
@@ -264,7 +272,25 @@ export default function AuditFunnelModal({ onClose }: { onClose: () => void }) {
               transition={{ duration: 0.22, ease: 'easeInOut' }}
             >
               {success && (
-                <div className="py-6 text-center">
+                <div className="relative py-6 text-center">
+                  {/* one quiet burst of confetti — the peak-end moment */}
+                  <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+                    {Array.from({ length: 20 }, (_, i) => (
+                      <motion.span
+                        key={i}
+                        className="absolute left-1/2 top-16 h-2 w-1.5 rounded-[1px]"
+                        style={{ background: i % 3 ? '#df2c32' : '#e0a53f' }}
+                        initial={{ x: 0, y: 0, opacity: 1, rotate: 0 }}
+                        animate={{
+                          x: (i % 2 ? 1 : -1) * (24 + ((i * 13) % 130)),
+                          y: 90 + ((i * 29) % 150),
+                          opacity: 0,
+                          rotate: (i % 2 ? 1 : -1) * (140 + ((i * 47) % 220)),
+                        }}
+                        transition={{ duration: 1.05 + (i % 5) * 0.13, ease: 'easeOut' }}
+                      />
+                    ))}
+                  </div>
                   <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-brand/25 bg-brand/10">
                     <Check size={28} strokeWidth={2.5} className="text-brand" />
                   </div>
