@@ -60,8 +60,8 @@ const CARE = [
 const ADS = [
   {
     name: 'Google Ads',
-    price: '£200',
-    flagshipPrice: '£100',
+    price: '£500',
+    flagshipPrice: '£400',
     desc: 'We run and optimise your Google Search campaigns.',
     points: [
       'We guarantee more clicks to your website',
@@ -72,8 +72,8 @@ const ADS = [
   },
   {
     name: 'Meta Ads',
-    price: '£500',
-    flagshipPrice: '£400',
+    price: '£250',
+    flagshipPrice: '£200',
     desc: 'We plan, run and optimise your Facebook & Instagram campaigns.',
     points: [
       'Promote your own creative — or we make it',
