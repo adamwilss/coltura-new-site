@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Newsreader, Fraunces } from 'next/font/google';
 import ThemeInit from '@/components/ThemeInit';
+import MicroMoments from '@/components/MicroMoments';
 import './globals.css';
 
 // Body copy runs in this optical-size serif rather than a UI sans — Inter/
@@ -36,7 +37,10 @@ export default function RootLayout({
       <head>
         <ThemeInit />
       </head>
-      <body className="bg-bg font-sans text-ink antialiased">{children}</body>
+      <body className="bg-bg font-sans text-ink antialiased">
+        <MicroMoments />
+        {children}
+      </body>
     </html>
   );
 }

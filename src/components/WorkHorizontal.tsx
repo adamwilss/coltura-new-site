@@ -29,7 +29,7 @@ const PROJECTS = [
     line: '“Fast, professional, and actually brings in enquiries.”',
     img: '/images/builds/erp-experts.png',
     url: '',
-    displayUrl: '',
+    displayUrl: 'erpexperts',
   },
   {
     name: 'The Dress Agency',
@@ -41,12 +41,33 @@ const PROJECTS = [
   },
 ];
 
+/** Browser-chrome frame so each screenshot reads as a live site, not a JPEG. */
+function BrowserFrame({ name, displayUrl, img, sizes }: { name: string; displayUrl: string; img: string; sizes: string }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_50px_90px_-45px_rgba(0,0,0,0.4)]">
+      <div className="relative flex items-center border-b border-line bg-bg-secondary/70 px-4 py-2.5">
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="h-2.5 w-2.5 rounded-full bg-[#f57f6f]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#f5bf4f]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#61c554]" />
+        </span>
+        <span className="absolute left-1/2 -translate-x-1/2 rounded-md bg-bg px-4 py-1 font-mono text-[11px] text-muted">
+          {displayUrl}
+        </span>
+      </div>
+      <div className="relative aspect-[16/10]">
+        <Image src={img} alt={`${name} website, built by Coltura`} fill sizes={sizes} className="object-cover object-top" />
+      </div>
+    </div>
+  );
+}
+
 /**
  * The Work, as a street you walk down. On desktop the section pins for four
- * screens of scroll while the four projects travel horizontally past — the
- * same rAF + CSS-custom-property pattern as ParallaxImage/Statement (no
- * scroll-jacking libraries, the scrollbar always behaves). On mobile and
- * under reduced motion it's an honest vertical stack of the same content.
+ * screens of scroll while the four projects travel horizontally past. The
+ * transform chases the scroll position through a small lerp each frame, so
+ * the travel feels fluid rather than ratchety — same no-library rAF pattern
+ * as the rest of the site. Mobile and reduced motion get a vertical stack.
  */
 export default function WorkHorizontal() {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -58,46 +79,39 @@ export default function WorkHorizontal() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let ticking = false;
+    let raf: number;
+    let current = 0;
+    let lastIdx = -1;
 
-    function update() {
-      ticking = false;
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
       const wrap = wrapRef.current;
       const track = trackRef.current;
-      if (!wrap || !track) return;
-      // Only the lg+ horizontal variant is in the layout; if it's hidden
-      // (mobile), offsetParent is null and there's nothing to drive.
-      if (track.offsetParent === null) return;
+      if (!wrap || !track || track.offsetParent === null) return;
       const rect = wrap.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.bottom < -80 || rect.top > vh + 80) return; // offscreen: skip work
       const travel = rect.height - vh;
-      const p = Math.max(0, Math.min(1, -rect.top / travel));
-      track.style.transform = `translate3d(${(-p * (n - 1) * 100).toFixed(3)}vw, 0, 0)`;
+      const target = Math.max(0, Math.min(1, -rect.top / travel));
+      current += (target - current) * 0.09;
+      if (Math.abs(target - current) < 0.0004) current = target;
+      track.style.transform = `translate3d(${(-current * (n - 1) * 100).toFixed(4)}vw, 0, 0)`;
 
-      const idx = Math.min(n - 1, Math.round(p * (n - 1)));
-      if (counterRef.current) counterRef.current.textContent = String(idx + 1).padStart(2, '0');
-      if (dotsRef.current) {
-        Array.from(dotsRef.current.children).forEach((d, i) => {
-          (d as HTMLElement).style.opacity = i === idx ? '1' : '0.25';
-          (d as HTMLElement).style.transform = i === idx ? 'scaleX(2.4)' : 'scaleX(1)';
-        });
+      const idx = Math.min(n - 1, Math.round(current * (n - 1)));
+      if (idx !== lastIdx) {
+        lastIdx = idx;
+        if (counterRef.current) counterRef.current.textContent = String(idx + 1).padStart(2, '0');
+        if (dotsRef.current) {
+          Array.from(dotsRef.current.children).forEach((d, i) => {
+            (d as HTMLElement).style.opacity = i === idx ? '1' : '0.25';
+            (d as HTMLElement).style.transform = i === idx ? 'scaleX(2.4)' : 'scaleX(1)';
+          });
+        }
       }
-    }
-
-    function onScroll() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    }
-
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
     };
+
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
   }, [n]);
 
   return (
@@ -105,12 +119,14 @@ export default function WorkHorizontal() {
       {/* ── Desktop: pinned horizontal travel ─────────────────────────── */}
       <div ref={wrapRef} className="hidden motion-safe:lg:block" style={{ height: `${n * 100 + 40}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden">
-          {/* Header chrome stays put while the street moves */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-end justify-between px-10 pt-24">
-            <SectionLabel label="Recent Work" />
-            <p className="font-heading text-sm tabular-nums text-muted">
-              <span ref={counterRef} className="text-ink">01</span> / {String(n).padStart(2, '0')}
-            </p>
+          {/* Header chrome, aligned to the same gutter as the panels */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 pt-24">
+            <div className="mx-auto flex max-w-6xl items-end justify-between px-10">
+              <SectionLabel label="Recent Work" />
+              <p className="font-heading text-sm tabular-nums text-muted">
+                <span ref={counterRef} className="text-ink">01</span> / {String(n).padStart(2, '0')}
+              </p>
+            </div>
           </div>
 
           <div
@@ -123,11 +139,11 @@ export default function WorkHorizontal() {
                 {/* Ghost numeral looming behind each panel */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute left-8 top-1/2 -translate-y-1/2 select-none font-heading text-[26rem] font-semibold leading-none text-ink/[0.045]"
+                  className="pointer-events-none absolute left-8 top-1/2 -translate-y-1/2 select-none font-heading text-[24rem] font-semibold leading-none text-ink/[0.04]"
                 >
                   {i + 1}
                 </span>
-                <div className="relative mx-auto grid w-full max-w-6xl grid-cols-[0.9fr_1.1fr] items-center gap-16 px-10">
+                <div className="relative mx-auto grid w-full max-w-6xl grid-cols-[0.85fr_1.15fr] items-center gap-14 px-10">
                   <div>
                     <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-brand">{p.tag}</p>
                     <h3 className="mb-5 font-heading text-[clamp(2.5rem,4.5vw,4rem)] font-medium leading-[1.02] tracking-[-0.015em] text-ink">
@@ -146,13 +162,7 @@ export default function WorkHorizontal() {
                       </a>
                     )}
                   </div>
-                  <div
-                    className={`relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-card shadow-[0_60px_100px_-50px_rgba(0,0,0,0.45)] ${
-                      i % 2 === 0 ? 'rotate-[1.2deg]' : '-rotate-[1.2deg]'
-                    }`}
-                  >
-                    <Image src={p.img} alt={`${p.name} website, built by Coltura`} fill sizes="55vw" className="object-cover object-top" />
-                  </div>
+                  <BrowserFrame name={p.name} displayUrl={p.displayUrl} img={p.img} sizes="60vw" />
                 </div>
               </div>
             ))}
@@ -180,8 +190,8 @@ export default function WorkHorizontal() {
         <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2">
           {PROJECTS.map((p) => (
             <div key={p.name}>
-              <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-xl border border-line bg-card shadow-[0_14px_34px_-18px_rgba(0,0,0,0.2)]">
-                <Image src={p.img} alt={`${p.name} website, built by Coltura`} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
+              <div className="mb-5">
+                <BrowserFrame name={p.name} displayUrl={p.displayUrl} img={p.img} sizes="(min-width: 640px) 50vw, 100vw" />
               </div>
               <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand">{p.tag}</p>
               <h3 className="font-heading text-xl font-medium text-ink">{p.name}</h3>

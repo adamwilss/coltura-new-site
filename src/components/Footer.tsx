@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Logo from './Logo';
+import SpeedBrag from './SpeedBrag';
 import { PHONE_DISPLAY, WHATSAPP_LINK } from '@/lib/whatsapp';
 
 const LINKS = [
@@ -71,6 +72,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-start justify-between gap-3 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center">
           <p>coltura.uk</p>
+          <SpeedBrag />
           <p>&copy; {new Date().getFullYear()} Coltura. All rights reserved.</p>
         </div>
       </div>

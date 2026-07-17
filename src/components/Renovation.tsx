@@ -6,7 +6,6 @@ import { RotateCcw } from 'lucide-react';
 
 const HOLD_MS = 1350;
 const WIPE_MS = 950;
-const SESSION_KEY = 'coltura-reno-played';
 
 type Phase = 'idle' | 'holding' | 'wiping' | 'done';
 
@@ -33,9 +32,6 @@ export default function Renovation() {
     if (holdTimer.current) clearTimeout(holdTimer.current);
     if (wipeTimer.current) clearTimeout(wipeTimer.current);
     document.body.style.overflow = '';
-    try {
-      sessionStorage.setItem(SESSION_KEY, '1');
-    } catch {}
     setPhase('done');
   }, []);
 
@@ -58,17 +54,11 @@ export default function Renovation() {
     wipeTimer.current = setTimeout(finish, WIPE_MS + 60);
   }, [finish]);
 
+  // Plays on EVERY load — refreshing the page is part of the joke (the user
+  // watched people do exactly that). Reduced motion still opts out entirely.
   useEffect(() => {
     reducedRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let played = false;
-    try {
-      played = sessionStorage.getItem(SESSION_KEY) === '1';
-    } catch {}
     if (reducedRef.current) return; // no overlay, no replay pill
-    if (played) {
-      setPhase('done');
-      return;
-    }
     play();
     return () => {
       if (holdTimer.current) clearTimeout(holdTimer.current);

@@ -1,6 +1,7 @@
 import { FileText } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import Reveal from './Reveal';
+import AuditBook from './AuditBook';
 
 // Shows the REAL sample Growth Audit PDF (the actual document a prospect
 // receives) rather than a mocked-up card. The 18 areas are real content from
@@ -40,25 +41,10 @@ export default function AuditExample() {
             </ul>
           </div>
 
-          {/* The real PDF */}
+          {/* The real audit, as a book you can flick through (the PDF iframe
+              was too heavy and often never loaded — page images always do). */}
           <div>
-            <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_28px_56px_-28px_rgba(0,0,0,0.24)]">
-              <div className="flex items-center gap-2.5 border-b border-line px-4 py-3">
-                <span className="h-2 w-2 shrink-0 rounded-full bg-brand" />
-                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted">
-                  Coltura Growth Audit
-                </span>
-                <span className="ml-auto shrink-0 rounded border border-brand/25 bg-brand/10 px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide text-brand">
-                  Real example
-                </span>
-              </div>
-              <iframe
-                src="/coltura-sample-growth-audit.pdf#toolbar=0&navpanes=0&view=FitH"
-                title="Example Coltura Growth Audit"
-                loading="lazy"
-                className="h-[500px] w-full bg-white sm:h-[620px]"
-              />
-            </div>
+            <AuditBook basePath="/images/growth-audit-pages" pageCount={8} label="Coltura Growth Audit" />
             <a
               href="/coltura-sample-growth-audit.pdf"
               target="_blank"

@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
-import { Phone, Eye, Compass, Smartphone, Zap, ShieldCheck, MousePointerClick, MapPin, Mail, FileText } from 'lucide-react';
+import { Phone, Eye, Compass, Smartphone, Zap, ShieldCheck, MousePointerClick, MapPin, Mail } from 'lucide-react';
 
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
@@ -11,7 +11,7 @@ import Counter from '@/components/Counter';
 import ArchImage from '@/components/ArchImage';
 import MagneticButton from '@/components/MagneticButton';
 import AuditFunnel from '@/components/AuditFunnel';
-import PdfPreview from '@/components/PdfPreview';
+import AuditBook from '@/components/AuditBook';
 import LeadAnalytics from '@/components/LeadAnalytics';
 import SpotsLeft from '@/components/SpotsLeft';
 import FaqItem from './FaqItem';
@@ -241,19 +241,12 @@ export default function GetStartedPage() {
               </div>
 
               <div>
-                <PdfPreview
-                  src="/coltura-sample-site-audit.pdf#toolbar=0&navpanes=0&view=FitH"
-                  title="Example Coltura Growth Audit"
+                <AuditBook
+                  basePath="/images/audit-pages"
+                  pageCount={8}
+                  label="Coltura Growth Audit"
+                  pdfHref="/coltura-sample-site-audit.pdf"
                 />
-                <a
-                  href="/coltura-sample-site-audit.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-2.5 text-sm font-semibold text-brand transition-colors hover:underline"
-                >
-                  <FileText size={17} strokeWidth={2} />
-                  Open the full example audit
-                </a>
               </div>
             </div>
           </Reveal>
