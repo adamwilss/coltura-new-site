@@ -14,11 +14,23 @@ export default function CookieConsent() {
 
   const handleAccept = () => {
     localStorage.setItem('coltura-cookie-consent', 'accepted');
+    // Upgrade Google Consent Mode immediately — no reload needed for GA/Ads
+    // to start measuring this session.
+    const gtag = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+      });
+    }
     setVisible(false);
   };
 
   const handleDecline = () => {
     localStorage.setItem('coltura-cookie-consent', 'declined');
+    // Consent Mode already defaults to denied; nothing to revoke.
     setVisible(false);
   };
 
