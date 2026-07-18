@@ -73,7 +73,12 @@ export default function Footer() {
         <div className="flex flex-col items-start justify-between gap-3 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center">
           <p>coltura.uk</p>
           <SpeedBrag />
-          <p>&copy; {new Date().getFullYear()} Coltura. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="/privacy-policy" className="transition-colors hover:text-ink">
+              Privacy &amp; Cookie Policy
+            </a>
+            <p>&copy; {new Date().getFullYear()} Coltura. All rights reserved.</p>
+          </div>
         </div>
       </div>
     </footer>

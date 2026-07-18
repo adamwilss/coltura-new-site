@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Newsreader, Fraunces } from 'next/font/google';
 import ThemeInit from '@/components/ThemeInit';
 import MicroMoments from '@/components/MicroMoments';
+import CookieConsent from '@/components/CookieConsent';
 import './globals.css';
 
 // Body copy runs in this optical-size serif rather than a UI sans — Inter/
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className="bg-bg font-sans text-ink antialiased">
         <MicroMoments />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );
