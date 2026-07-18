@@ -65,14 +65,14 @@ const PROCESS_STEPS = [
 ];
 
 // Quiet proof strip — replaces the testimonial card grid. Screenshots are the
-// real sites. Regenovate / ERPExperts / Solar in Sport lines are drawn from the
-// clients' own approved quotes. The Dress Agency quote is a DRAFT awaiting the
-// owner's sign-off — the visible tag stays until they approve the wording.
+// real sites. Quoted lines are drawn from the clients' own approved words;
+// The Dress Agency gets a descriptive line (no quote) until its owner signs
+// one off — never ship an unapproved testimonial.
 const BUILDS = [
   { name: 'Regenovate', role: 'Mergers & acquisitions', img: '/images/builds/regenovate.png', line: '“Credibility with clarity” for multi-million-pound deals — “the site performs flawlessly.”', url: 'https://www.regenovate.co.uk/', displayUrl: 'regenovate.co.uk', draft: false },
   { name: 'ERPExperts', role: 'ERP implementation & support', img: '/images/builds/erp-experts.png', line: '“Fast, professional, and actually brings in enquiries.”', url: '', displayUrl: '', draft: false },
   { name: 'Solar in Sport', role: 'Solar for grassroots clubs', img: '/images/builds/solar-in-sport.png', line: 'A complex offer explained clearly — driving club enquiries across the UK.', url: 'https://solarinsport.uk/', displayUrl: 'solarinsport.uk', draft: false },
-  { name: 'The Dress Agency', role: 'Preloved designer fashion · Hazel Grove', img: '/images/builds/dress-agency.png', line: '“Adam understood the shop straight away — the site feels like walking through our door. Elegant, effortless, and new faces mention it every week.” — Owner', url: 'https://www.thedress.agency/', displayUrl: 'thedress.agency', draft: true },
+  { name: 'The Dress Agency', role: 'Preloved designer fashion · Hazel Grove', img: '/images/builds/dress-agency.png', line: 'Thirty years of Hazel Grove retail, finally looking the part online — elegant, effortless, easy to update.', url: 'https://www.thedress.agency/', displayUrl: 'thedress.agency', draft: false },
 ];
 
 const FAQS = [

@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${newsreader.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="uxymrK7EQaWon1eONCpqYmLUCVISnKqGXPbx56NrmVM" />
         <ThemeInit />
         {/* Google Analytics GA4 + Google Ads — same properties as the live
             site (G-2T6SRJF838 / AW-18203149085), but consent-aware: Consent
