@@ -1,25 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import { auditFunnelSchema } from '@/lib/validation';
 
 export const runtime = 'nodejs';
 
 /*
- * Lead delivery — three channels, tried in parallel, success if ANY lands:
+ * Lead delivery — four channels, tried in parallel, success if ANY lands:
  *
- *  1. FormSubmit.co server-side relay (EMAIL, PRIMARY): zero configuration —
- *     no env vars, no API key, no SMTP password to rot. The pattern is lifted
- *     from the Solar in Sport /api/contact route where it's proven in
- *     production. Two non-obvious requirements, learned the hard way there:
- *       - the Referer header MUST be set explicitly (server-side fetch sends
- *         none by default and FormSubmit rejects the request without it);
- *       - the recipient address must already be activated on FormSubmit.
- *         fen@coltura.uk is — the live coltura.uk contact form posts to it.
+ *  1. SMTP via nodemailer (EMAIL, PRIMARY ON VERCEL): uses the SMTP_HOST /
+ *     SMTP_PORT / SMTP_USER / SMTP_PASS env vars that were already configured
+ *     on the Vercel `coltura` project (2026-07-13) for the old site's
+ *     /api/lead route — the proven email path from Vercel's egress.
  *  2. Telegram (INSTANT PING): only if TELEGRAM_BOT_TOKEN is set in the env.
- *  3. Resend (EMAIL, OPTIONAL EXTRA): only if RESEND_API_KEY is set.
+ *  3. FormSubmit.co server-side relay (EMAIL, ZERO-CONFIG FALLBACK): lifted
+ *     from Solar in Sport's /api/contact. Works from residential/dev IPs but
+ *     Cloudflare 403s Vercel's datacenter IPs — kept because it costs nothing
+ *     and covers local/dev and any future non-Vercel host. Requirements:
+ *     explicit Referer header + a FormSubmit-activated recipient
+ *     (fen@coltura.uk is, via the live contact form).
+ *  4. Resend (EMAIL, OPTIONAL EXTRA): only if RESEND_API_KEY is set.
  *
- * The old behaviour 500'd whenever Telegram wasn't configured; now a lead is
- * only ever rejected if every channel fails.
+ * A lead is only ever rejected if every channel fails.
  */
 const FORMSUBMIT_TO = process.env.AUDIT_NOTIFICATION_EMAIL || 'fen@coltura.uk';
 const resendApiKey = process.env.RESEND_API_KEY;
@@ -34,6 +36,33 @@ interface Lead {
   name: string;
   email: string;
   phone?: string;
+}
+
+async function sendSmtpEmail(lead: Lead, text: string): Promise<boolean> {
+  const host = process.env.SMTP_HOST?.trim();
+  const user = process.env.SMTP_USER?.trim();
+  const pass = process.env.SMTP_PASS;
+  if (!host || !user || !pass) return false;
+  try {
+    const port = Number(process.env.SMTP_PORT) || 587;
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure: port === 465,
+      auth: { user, pass },
+    });
+    await transporter.sendMail({
+      from: `Coltura Audits <${user}>`,
+      to: FORMSUBMIT_TO,
+      replyTo: lead.email,
+      subject: `Free audit request — ${lead.website} (${lead.name})`,
+      text,
+    });
+    return true;
+  } catch (err) {
+    console.error('SMTP send exception:', err);
+    return false;
+  }
 }
 
 async function sendFormSubmitEmail(lead: Lead): Promise<boolean> {
@@ -158,17 +187,18 @@ export async function POST(req: NextRequest) {
       .join('\n');
 
     // All channels race in parallel; one landing is enough.
-    const [emailOk, telegramOk, resendOk] = await Promise.all([
-      sendFormSubmitEmail(lead),
+    const [smtpOk, telegramOk, formsubmitOk, resendOk] = await Promise.all([
+      sendSmtpEmail(lead, messageText),
       sendTelegramNotification(messageText),
+      sendFormSubmitEmail(lead),
       sendResendEmail(lead, messageText),
     ]);
 
     console.log(
-      `[audit-funnel] ${lead.website} <${lead.email}> — formsubmit:${emailOk} telegram:${telegramOk} resend:${resendOk}`,
+      `[audit-funnel] ${lead.website} <${lead.email}> — smtp:${smtpOk} telegram:${telegramOk} formsubmit:${formsubmitOk} resend:${resendOk}`,
     );
 
-    if (!emailOk && !telegramOk && !resendOk) {
+    if (!smtpOk && !telegramOk && !formsubmitOk && !resendOk) {
       return NextResponse.json(
         { ok: false, error: 'We couldn’t send your request just now. Please try again, or message us on WhatsApp.' },
         { status: 500 },
