@@ -156,22 +156,25 @@ export default function GetStartedPage() {
               Within 48 hours you get a clear, branded audit: what&rsquo;s costing you enquiries,
               what&rsquo;s already working, and what to fix first.
             </p>
-            <p className="reveal-3 mb-6 flex items-baseline gap-2.5">
+            <p className="reveal-3 mb-6 flex items-baseline gap-4">
               <span className="text-lg text-muted line-through decoration-brand/60 decoration-2">£99</span>
-              <span className="relative inline-block px-1.5 font-heading text-2xl font-semibold text-ink">
+              {/* The circle renders at a FIXED pixel size: the word is text-2xl
+                  on every viewport, so any stretch-to-fit approach distorts
+                  the stroke into fat lumpy arcs (worst on mobile). One clean
+                  pen sweep, ratio locked to the viewBox, room to breathe. */}
+              <span className="relative mx-1 inline-block font-heading text-2xl font-semibold text-ink">
                 Free
                 <svg
-                  className="marker-circle pointer-events-none absolute inset-0 h-full w-full scale-x-[1.44] scale-y-[1.76]"
-                  viewBox="0 0 120 64"
+                  className="marker-circle pointer-events-none absolute left-1/2 top-[46%] h-[54px] w-[94px] -translate-x-1/2 -translate-y-1/2"
+                  viewBox="0 0 120 70"
                   fill="none"
-                  preserveAspectRatio="none"
                   aria-hidden
                   style={{ '--draw-delay': '1600ms' } as CSSProperties}
                 >
                   <path
-                    d="M18 32 C 14 12, 96 4, 108 24 C 116 44, 66 62, 34 56 C 10 51, 8 38, 20 26"
+                    d="M 26 54 C 8 43, 10 15, 44 9 C 78 3, 112 11, 113 32 C 114 51, 86 64, 52 62 C 39 61, 31 58, 25 51"
                     stroke="rgb(var(--brand))"
-                    strokeWidth="3.5"
+                    strokeWidth="3"
                     strokeLinecap="round"
                     pathLength="1"
                   />
