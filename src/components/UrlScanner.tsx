@@ -103,6 +103,9 @@ export default function UrlScanner() {
     }
     setError('');
     setDomain(host);
+    try {
+      sessionStorage.setItem('coltura-lead-website', normalise(trimmed));
+    } catch {}
     setScanning(true);
     setLineCount(0);
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

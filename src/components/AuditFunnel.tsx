@@ -19,7 +19,13 @@ export default function AuditFunnel() {
       const trigger = target?.closest?.('[data-audit-funnel]');
       if (!trigger) return;
       e.preventDefault();
-      setState({ open: true, website: '' });
+      // If they already typed their website this session (scanner or a
+      // previous attempt), don't make them type it twice — open at step 2.
+      let website = '';
+      try {
+        website = sessionStorage.getItem('coltura-lead-website') || '';
+      } catch {}
+      setState({ open: true, website });
     };
     const onOpen = (e: Event) => {
       const website = (e as CustomEvent<{ website?: string }>).detail?.website ?? '';

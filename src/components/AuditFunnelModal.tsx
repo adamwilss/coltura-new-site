@@ -125,6 +125,11 @@ export default function AuditFunnelModal({
       return;
     }
     setWebsiteError('');
+    // Remember the website for the session: if they close the modal now, the
+    // next trigger (or the exit-intent card) reopens straight at step 2.
+    try {
+      sessionStorage.setItem('coltura-lead-website', normaliseUrl(trimmed));
+    } catch {}
     goTo(2, 1);
   }
 
@@ -183,6 +188,12 @@ export default function AuditFunnelModal({
         throw new Error(json.error || 'Something went wrong');
       }
       setSuccess(true);
+      // Session flags: stop the exit-intent card nagging someone who already
+      // converted, and clear the remembered website.
+      try {
+        sessionStorage.setItem('coltura-funnel-done', '1');
+        sessionStorage.removeItem('coltura-lead-website');
+      } catch {}
       // Fire a lead-conversion event (ready for Google Ads / GA once loaded).
       const gtag = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
       if (typeof gtag === 'function') {

@@ -15,6 +15,7 @@ import UrlScanner from '@/components/UrlScanner';
 import BeforeAfter from '@/components/BeforeAfter';
 import LeakGrid from '@/components/LeakGrid';
 import PhoneRings from '@/components/PhoneRings';
+import ExitIntent from '@/components/ExitIntent';
 import LeadAnalytics from '@/components/LeadAnalytics';
 import SpotsLeft from '@/components/SpotsLeft';
 import FaqItem from './FaqItem';
@@ -109,6 +110,7 @@ export default function GetStartedPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <LeadAnalytics />
       <AuditFunnel />
+      <ExitIntent />
       <Nav />
 
       {/* ── HERO — the leak, named. One promise, one price anchor, one CTA,
