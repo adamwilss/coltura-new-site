@@ -161,7 +161,7 @@ export default function GetStartedPage() {
               <span className="relative inline-block px-1.5 font-heading text-2xl font-semibold text-ink">
                 Free
                 <svg
-                  className="marker-circle pointer-events-none absolute -inset-x-[22%] -inset-y-[38%]"
+                  className="marker-circle pointer-events-none absolute inset-0 h-full w-full scale-x-[1.44] scale-y-[1.76]"
                   viewBox="0 0 120 64"
                   fill="none"
                   preserveAspectRatio="none"
